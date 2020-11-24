@@ -104,6 +104,7 @@ typings/
 
 # TMDB API key
 tmdb.config.js
+omdb.config.js
 
 # Webpack Bundle
 bundle.js
