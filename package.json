@@ -1,0 +1,32 @@
+{
+  "name": "ilikemovies",
+  "version": "1.0.0",
+  "description": "iLikeMovies - A Movie List App",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/owenwexler/iLikeMovies.git"
+  },
+  "author": "Owen Wexler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/owenwexler/iLikeMovies/issues"
+  },
+  "homepage": "https://github.com/owenwexler/iLikeMovies#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  }
+}
