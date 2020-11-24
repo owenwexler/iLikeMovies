@@ -4,6 +4,8 @@
   "description": "iLikeMovies - A Movie List App",
   "main": "server/server.js",
   "scripts": {
+    "start": "nodemon server/server.js",
+    "react-dev": "webpack -d --watch",
     "test": "jest"
   },
   "repository": {

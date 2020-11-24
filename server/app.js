@@ -1,24 +1,22 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const cors = require('cors');
-
-const PhotoSiteController = require('../db/PhotoSiteController.js');
+// const cors = require('cors');
 
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 const staticPath = __dirname + '/../client/dist/';
 app.use(express.static(staticPath));
 
 // ROUTES
 
-app.get('/', (req, res) => {
-  res.status(200).send('Hello World!');
-})
+// app.get('/', (req, res) => {
+//   res.status(200).send('Hello World!');
+// })
 
-app.get('*', (req, res) => {
-  res.sendFile('index.html', { root: './client/dist/' });
-});
+// app.get('*', (req, res) => {
+//   res.sendFile('index.html', { root: './client/dist/' });
+// });
 
 module.exports = app;
