@@ -3,7 +3,7 @@ const axios = require('axios');
 
 const getOMDBMovie = async (movie, callback) => {
   try {
-    const result = await axios(`http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&t=${movie}&r=json&plot=full`);
+    const result = await axios(`http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&t=${movie}&r=json&plot=short`);
     const data = result.data
     callback(null, data);
   } catch (error) {
@@ -11,7 +11,7 @@ const getOMDBMovie = async (movie, callback) => {
   }
 }
 
-getOMDBMovie('THISMOVIEDOESNOTEXIST', (err, res) => {
+getOMDBMovie('Lean On Me', (err, res) => {
   console.log(JSON.stringify(res));
 })
 
