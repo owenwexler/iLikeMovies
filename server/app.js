@@ -11,6 +11,10 @@ app.use(express.static(staticPath));
 
 // ROUTES
 
+// app.get('/api/movies', (req, res) => {
+//   res.status(200).send()
+// })
+
 // app.get('/', (req, res) => {
 //   res.status(200).send('Hello World!');
 // })
