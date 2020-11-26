@@ -8,7 +8,7 @@ const sampleData = [
     genre: 'Drama',
     runtime: 108,
     director: 'John G. Avildsen',
-    writer: 'Michael Schiffer'
+    writer: 'Michael Schiffer',
     actors: 'Morgan Freeman, Beverly Todd, Robert Guillaume, Alan North',
     plot: 'The dedicated but tyrannical Joe Clark is appointed the principal of a decaying inner-city school and he is determined to improve by any and all means.',
     poster: 'https://m.media-amazon.com/images/M/MV5BMTUxNjg3MzExOF5BMl5BanBnXkFtZTgwMDc1NjQyMTI@._V1_SX300.jpg'
