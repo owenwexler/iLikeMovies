@@ -3,6 +3,11 @@ const app = express();
 const path = require('path');
 // const cors = require('cors');
 
+const sampleData = require('../data/sampledata.js');
+const getOMDBMovie = require('../omdb/omdb.js');
+
+let movieData = sampleData.slice();
+
 app.use(express.json());
 // app.use(cors());
 
@@ -11,9 +16,10 @@ app.use(express.static(staticPath));
 
 // ROUTES
 
-// app.get('/api/movies', (req, res) => {
-//   res.status(200).send()
-// })
+app.get('/api/movies', (req, res) => {
+  res.status(200);
+  res.json(sampleData);
+})
 
 
 // app.get('*', (req, res) => {

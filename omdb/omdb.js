@@ -11,8 +11,4 @@ const getOMDBMovie = async (movie, callback) => {
   }
 }
 
-getOMDBMovie('Lean On Me', (err, res) => {
-  console.log(JSON.stringify(res));
-})
-
 module.exports = getOMDBMovie;
