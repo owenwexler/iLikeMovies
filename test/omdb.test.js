@@ -1,4 +1,4 @@
-const getOMDBMovie = require('./omdb.js');
+const getOMDBMovie = require('../omdb/omdb.js');
 
 it('gets the title of a known movie successfully', () => {
   getOMDBMovie('Lean On Me', (err, result) => {
