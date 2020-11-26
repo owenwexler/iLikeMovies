@@ -15,9 +15,6 @@ app.use(express.static(staticPath));
 //   res.status(200).send()
 // })
 
-// app.get('/', (req, res) => {
-//   res.status(200).send('Hello World!');
-// })
 
 // app.get('*', (req, res) => {
 //   res.sendFile('index.html', { root: './client/dist/' });
