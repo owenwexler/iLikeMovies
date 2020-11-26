@@ -55,14 +55,43 @@ describe('GET route', () => {
 
     done();
   });
-
-  // it('successfully posts a known movie using OMDB data', async done => {
-  //   let getResponse = await request.get('/api/movies');
-
-  //   let firstLength = getResponse.body.length;
-
-  //   let postResponse = await request.post('/api/movies?&movie="Patton"');
-
-  //   e
-  // });
 });
+
+describe('POST route', () => {
+  it('successfully posts a known movie using OMDB data', async done => {
+    let getResponse = await request.get('/api/movies');
+
+    let firstLength = getResponse.body.length;
+
+    let postResponse = await request.post('/api/movies/movie="Patton"');
+
+    responseObjectAssertions(postResponse);
+
+    getResponse = await request.get('/api/movies');
+    expect(getResponse.body.length).toEqual(firstLength + 1);
+  });
+
+  it('successfully posts an unknown movie using dummy data', async done => {
+    let getResponse = await request.get('/api/movies');
+
+    let firstLength = getResponse.body.length;
+
+    let postResponse = await request.post('/api/movies/movie="THISMOVIEDOESNOTEXIST"');
+
+    responseObjectAssertions(postResponse);
+
+    getResponse = await request.get('/api/movies');
+    expect(getResponse.body.length).toEqual(firstLength + 1);
+  });
+
+  it('refrains from posting a movie already in the database', async done => {
+    let getResponse = await request.get('/api/movies');
+
+    let firstLength = getResponse.body.length;
+
+    let postResponse = await request.post('/api/movies/movie="Lean On Me"');
+
+    getResponse = await request.get('/api/movies');
+    expect(getResponse.body.length).toEqual(firstLength);
+  });
+})
