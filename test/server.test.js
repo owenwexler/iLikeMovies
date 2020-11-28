@@ -63,7 +63,7 @@ describe('POST route', () => {
 
     let firstLength = getResponse.body.length;
 
-    let postResponse = await request.post('/api/movies/movie="Patton"');
+    let postResponse = await request.post('/api/movies?movie=Patton');
 
     responseObjectAssertions(postResponse);
 

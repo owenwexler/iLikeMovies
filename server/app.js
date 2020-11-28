@@ -21,6 +21,33 @@ app.get('/api/movies', (req, res) => {
   res.json(sampleData);
 })
 
+app.post('api/movies', (req, res) => {
+  const movieQueryTitle = req.query.movie;
+
+  let existing = movieData.filter(movie => movie.title = movieQueryTitle);
+  let resultData;
+
+  if (existing.length > 0) {
+    res.json(existing[0]);
+  }
+
+  getOMDBMovie(movieQueryTitle, (err, data) => {
+    if (err) {
+      res.status(500).send();
+    } else {
+      if (data.Response = 'False') {
+        // resultData = getDummyData(title);
+      } else {
+        resultData = data;
+      }
+
+      movieData.push(resultData);
+      res.json(resultData);
+    }
+  });
+
+
+})
 
 // app.get('*', (req, res) => {
 //   res.sendFile('index.html', { root: './client/dist/' });
