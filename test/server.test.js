@@ -3,20 +3,20 @@ const supertest = require('supertest');
 const request = supertest(app);
 
 const responseObjectAssertions = (obj) => {
-  // expect(obj).toHaveProperty('movieListId');
-  // expect(obj).toHaveProperty('title');
-  // expect(obj).toHaveProperty('year');
-  // expect(obj).toHaveProperty('rated');
-  // expect(obj).toHaveProperty('released');
-  // expect(obj).toHaveProperty('genre');
-  // expect(obj).toHaveProperty('runtime');
-  // expect(obj).toHaveProperty('director');
-  // expect(obj).toHaveProperty('writer');
-  // expect(obj).toHaveProperty('actors');
-  // expect(obj).toHaveProperty('plot');
-  // expect(obj).toHaveProperty('poster');
-  // expect(obj).toHaveProperty('metascore');
-  // expect(obj).toHaveProperty('imdbRating');
+  expect(obj).toHaveProperty('movieListId');
+  expect(obj).toHaveProperty('title');
+  expect(obj).toHaveProperty('year');
+  expect(obj).toHaveProperty('rated');
+  expect(obj).toHaveProperty('released');
+  expect(obj).toHaveProperty('genre');
+  expect(obj).toHaveProperty('runtime');
+  expect(obj).toHaveProperty('director');
+  expect(obj).toHaveProperty('writer');
+  expect(obj).toHaveProperty('actors');
+  expect(obj).toHaveProperty('plot');
+  expect(obj).toHaveProperty('poster');
+  expect(obj).toHaveProperty('metascore');
+  expect(obj).toHaveProperty('imdbRating');
 
   expect(typeof obj.movieListId).toBe('number');
   expect(typeof obj.title).toBe('string');
@@ -77,7 +77,6 @@ describe('POST route', () => {
     let getResponse = await request.get('/api/movies');
 
     let firstLength = getResponse.body.length;
-    console.log('firstLength: ', firstLength);
 
     let postResponse = await request.post('/api/movies?movie=THISMOVIEDOESNOTEXIST');
 
@@ -95,6 +94,36 @@ describe('POST route', () => {
     let firstLength = getResponse.body.length;
 
     let postResponse = await request.post('/api/movies?movie=Lean On Me');
+
+    getResponse = await request.get('/api/movies');
+
+    expect(getResponse.body.length).toEqual(firstLength);
+
+    done();
+  });
+});
+
+describe('DELETE route', () => {
+  it('deletes a movie in the database by title', async done => {
+    let getResponse = await request.get('/api/movies');
+
+    let firstLength = getResponse.body.length;
+
+    let deleteResponse = await request.delete('/api/movies?movie=PCU');
+
+    getResponse = await request.get('/api/movies');
+
+    expect(getResponse.body.length).toEqual(firstLength - 1);
+
+    done();
+  });
+
+  it('refrains from deleting a movie not in the database', async done => {
+    let getResponse = await request.get('/api/movies');
+
+    let firstLength = getResponse.body.length;
+
+    let deleteResponse = await request.delete('/api/movies?movie=NonExistent Movie');
 
     getResponse = await request.get('/api/movies');
 
