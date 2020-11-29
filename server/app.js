@@ -77,8 +77,22 @@ app.post('/api/movies', (req, res) => {
       }
     });
   }
+})
 
+app.delete('/api/movies/', (req, res) => {
+  let movieQueryTitle = req.query.movie;
+  let removedMovie = {};
 
+  movieData.forEach((movie) => {
+    if (movie.title.toLowerCase() === movieQueryTitle.toLowerCase()) {
+      removedMovie = movie;
+    }
+  });
+
+  movieData = movieData.filter(movie => movie.title.toLowerCase() !== movieQueryTitle.toLowerCase());
+
+  res.status(200);
+  res.json(removedMovie);
 })
 
 module.exports = app;
