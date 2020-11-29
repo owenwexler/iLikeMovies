@@ -18,39 +18,67 @@ app.use(express.static(staticPath));
 
 app.get('/api/movies', (req, res) => {
   res.status(200);
-  res.json(sampleData);
+  res.json(movieData);
 })
 
-app.post('api/movies', (req, res) => {
-  const movieQueryTitle = req.query.movie;
+app.post('/api/movies', (req, res) => {
+  let movieQueryTitle = req.query.movie;
 
-  let existing = movieData.filter(movie => movie.title = movieQueryTitle);
-  let resultData;
+  let existing = movieData.slice().filter(movie => movie.title.toLowerCase() === movieQueryTitle.toLowerCase());
 
   if (existing.length > 0) {
     res.json(existing[0]);
-  }
-
-  getOMDBMovie(movieQueryTitle, (err, data) => {
-    if (err) {
-      res.status(500).send();
-    } else {
-      if (data.Response = 'False') {
-        // resultData = getDummyData(title);
+  } else {
+    getOMDBMovie(movieQueryTitle, (err, data) => {
+      let resultData;
+      if (err) {
+        res.status(500).send();
       } else {
-        resultData = data;
-      }
+        if (data.Response === 'False') {
+          resultData = {
+            movieListId: movieData.length + 1,
+            title: movieQueryTitle,
+            year: 0,
+            rated: 'No info available',
+            released: 'No info available',
+            genre: 'No info available',
+            runtime: 'N/A',
+            director: 'No info available',
+            writer: 'No info available',
+            actors: 'No info available',
+            plot: 'No plot available',
+            poster: 'No poster available',
+            metascore: 0,
+            imdbRating: 0,
+            production: 'No info available '
+          };
+        } else {
+          resultData = {
+            movieListId: movieData.length + 1,
+            title: data.Title,
+            year: Number(data.Year),
+            rated: data.Rated,
+            released: data.Released,
+            genre: data.Genre,
+            runtime: data.Runtime,
+            director: data.Director,
+            writer: data.Writer,
+            actors: data.Actors,
+            plot: data.Plot,
+            poster: data.Poster,
+            metascore: Number(data.Metascore),
+            imdbRating: Number(data.imdbRating),
+            production: data.Production
+          };
+        }
 
-      movieData.push(resultData);
-      res.json(resultData);
-    }
-  });
+        movieData.push(resultData);
+        res.json(resultData);
+      }
+    });
+  }
 
 
 })
-
-// app.get('*', (req, res) => {
-//   res.sendFile('index.html', { root: './client/dist/' });
-// });
 
 module.exports = app;
