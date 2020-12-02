@@ -22,7 +22,8 @@ module.exports = {
           query: {
             presets: [
               "@babel/preset-react",
-              "@babel/preset-env"
+              "@babel/preset-env",
+              "@babel/plugin-syntax-jsx"
             ],
           }
         }
