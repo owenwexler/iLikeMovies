@@ -2,7 +2,7 @@ import React from 'react';
 
 const App = () => {
   return (
-    <div>
+    <div data-test="component-app">
       <h1>iLikeMovies</h1>
     </div>
   )
