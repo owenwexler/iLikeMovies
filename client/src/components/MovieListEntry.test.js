@@ -13,7 +13,7 @@ const assertForTextItem = (wrapper, item) => {
   expect(result.text().length).not.toBe(0);
 }
 
-describe('MovieListEntry component' => {
+describe('MovieListEntry component', () => {
   let wrapper = setup(0, sampleData[0]);
 
   test('renders without error', () => {
@@ -36,6 +36,10 @@ describe('MovieListEntry component' => {
 
   test('renders a genre', () => {
     assertForTextItem(wrapper, 'genre');
+  });
+
+  test('renders actors', () => {
+    assertForTextItem(wrapper, 'actors');
   });
 
   test('renders a toggle watch button', () => {

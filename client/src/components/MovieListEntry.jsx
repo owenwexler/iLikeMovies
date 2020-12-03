@@ -3,8 +3,28 @@ import PropTypes from 'prop-types';
 
 const MovieListEntry = ({movie}) => {
   return (
-    <div>
+    <div data-test="component-movie-list-entry">
+      <div>
+        <img data-test="movielistentry-image" src={movie.poster} />
+      </div>
 
+      <div>
+        <h3 data-test="movielistentry-title">
+          {movie.title}
+        </h3>
+        <h4 data-test="movielistentry-year">
+          {movie.year}
+        </h4>
+        <h5 data-test="movielistentry-genre">
+          {movie.genre}
+        </h5>
+        <p data-test="movielistentry-actors">
+          {movie.actors}
+        </p>
+        <button data-test="movielistentry-togglebutton">
+          To Watch
+        </button>
+      </div>
     </div>
   )
 }
