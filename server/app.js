@@ -95,6 +95,21 @@ app.post('/api/movies', (req, res) => {
   }
 })
 
+app.put('/api/movie/watched/', (req, res) => {
+  let inputId = Number(req.query.id);
+
+  for (let i = 0; i < movieData.length; i++) {
+    if (movieData[i].movieListId === inputId) {
+      movieData[i].watched = !movieData[i].watched;
+      res.status(200);
+      res.json(movieData[i]);
+    }
+  }
+
+  res.status(404);
+  res.end();
+});
+
 app.delete('/api/movies/', (req, res) => {
   let movieQueryTitle = req.query.movie;
   let removedMovie = {};

@@ -71,7 +71,7 @@ describe('GET route, /movie endpoint', () => {
     done();
   });
 
-  it('returns a 404 status if an invalid movie is found', async done => {
+  it('returns a 404 status for an invalid id', async done => {
     const response = await request.get('/api/movie?id=0');
     expect(response.status).toBe(404);
 
@@ -126,6 +126,32 @@ describe('POST route', () => {
   });
 });
 
+describe('PUT route', () => {
+  it('successfully changes watched flag for a valid movie in the database from false to true back to false', async done => {
+    let testPostResponse = await request.post('/api/movies?movie=Test Movie');
+
+    let testMovieId = testPostResponse.body.movieListId;
+    expect(testPostResponse.body.watched).toBe(false);
+
+    let testPutResponse = await request.put(`/api/movie/watched?id=${testMovieId}`);
+    expect(testPutResponse.body.watched).toBe(true);
+
+    testPutResponse = await request.put(`/api/movie/watched?id=${testMovieId}`);
+    expect(testPutResponse.body.watched).toBe(false);
+
+    let deletedMovie = await request.delete('/api/movies?movie=Test Movie');
+
+    done();
+  })
+
+  it('returns a 404 response for an invalid id', async done => {
+    const response = await request.put('/api/movie/watched?id=0');
+    expect(response.status).toBe(404);
+
+    done();
+  });
+});
+
 describe('DELETE route', () => {
   it('deletes a movie in the database by title', async done => {
     let getResponse = await request.get('/api/movies');
@@ -156,6 +182,3 @@ describe('DELETE route', () => {
   });
 });
 
-// describe('PUT route', () => {
-//   it('successfully changes watched flag for a movie in the database')
-// });
