@@ -152,7 +152,37 @@ describe('PUT route', () => {
   });
 });
 
-describe('DELETE route', () => {
+describe('DELETE route, api/movie', () => {
+  it('deletes a movie in the database by id', async done => {
+    let getResponse = await request.get('/api/movies');
+
+    let firstLength = getResponse.body.length;
+
+    let deleteResponse = await request.delete('/api/movie?id=3');
+
+    getResponse = await request.get('/api/movies');
+
+    expect(getResponse.body.length).toEqual(firstLength - 1);
+
+    done();
+  });
+
+  it('refrains from deleting a movie with an improper id', async done => {
+    let getResponse = await request.get('/api/movies');
+
+    let firstLength = getResponse.body.length;
+
+    let deleteResponse = await request.delete('/api/movie?id=0');
+
+    getResponse = await request.get('/api/movies');
+
+    expect(getResponse.body.length).toEqual(firstLength);
+
+    done();
+  });
+});
+
+describe('DELETE route, api/movies', () => {
   it('deletes a movie in the database by title', async done => {
     let getResponse = await request.get('/api/movies');
 
@@ -181,4 +211,3 @@ describe('DELETE route', () => {
     done();
   });
 });
-

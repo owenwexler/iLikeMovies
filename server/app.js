@@ -124,6 +124,22 @@ app.delete('/api/movies/', (req, res) => {
 
   res.status(200);
   res.json(removedMovie);
-})
+});
+
+app.delete('/api/movie/', (req, res) => {
+  let movieQueryId = Number(req.query.id);
+  let removedMovie = {};
+
+  movieData.forEach((movie) => {
+    if (movie.movieListId === movieQueryId) {
+      removedMovie = movie;
+    }
+  });
+
+  movieData = movieData.filter(movie => movie.movieListId !== movieQueryId);
+
+  res.status(200);
+  res.json(removedMovie);
+});
 
 module.exports = app;
