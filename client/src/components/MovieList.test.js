@@ -12,7 +12,7 @@ const setup = (movies=[]) => {
 };
 
 describe('if no movies are in the database', () => {
-  let wrapper
+  let wrapper;
   beforeEach(() => {
     wrapper = setup([]);
   });
@@ -40,7 +40,7 @@ describe('if there are movies', () => {
   });
 
   test('correct number of movies', () => {
-    const movieNodes = findByTestAttr(wrapper, 'movie-list-item');
+    const movieNodes = findByTestAttr(wrapper, 'movie-list-entry');
     expect(movieNodes.length).toBe(sampleData.length);
   });
 });
