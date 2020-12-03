@@ -37,7 +37,7 @@ const responseObjectAssertions = (obj) => {
   expect(typeof obj.watched).toBe('boolean');
 }
 
-describe('GET route', () => {
+describe('GET route, movies endpoint', () => {
   it('queries the /movies endpoint successfully', async done => {
     const response = await request.get('/api/movies');
 
@@ -58,6 +58,27 @@ describe('GET route', () => {
     done();
   });
 });
+
+describe('GET route, /movie endpoint', () => {
+  it('queries the /movie endpoint successfully for a valid id', async done => {
+    const response = await request.get('/api/movie?id=1');
+    expect(response.status).toBe(200);
+
+    const obj = response.body;
+
+    responseObjectAssertions(obj);
+
+    done();
+  });
+
+  it('returns a 404 status if an invalid movie is found', async done => {
+    const response = await request.get('/api/movie?id=0');
+    expect(response.status).toBe(404);
+
+    done();
+  });
+
+})
 
 describe('POST route', () => {
   it('successfully posts a known movie using OMDB data', async done => {
@@ -133,4 +154,8 @@ describe('DELETE route', () => {
 
     done();
   });
-})
+});
+
+// describe('PUT route', () => {
+//   it('successfully changes watched flag for a movie in the database')
+// });

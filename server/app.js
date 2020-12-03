@@ -21,6 +21,20 @@ app.get('/api/movies', (req, res) => {
   res.json(movieData);
 })
 
+app.get('/api/movie', (req, res) => {
+  let inputId = Number(req.query.id);
+
+  for (let i = 0; i < movieData.length; i++) {
+    if (movieData[i].movieListId === inputId) {
+      res.status(200);
+      res.json(movieData[i]);
+    }
+  }
+
+  res.status(404);
+  res.end();
+})
+
 app.post('/api/movies', (req, res) => {
   let movieQueryTitle = req.query.movie;
 
