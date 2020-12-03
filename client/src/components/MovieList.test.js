@@ -2,6 +2,8 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { findByTestAttr } from '../../../test/testUtils';
 import sampleData from '../../../data/sampleData.js';
+import movieContext from '../../contexts/movieContext.js';
+import MovieList from './MovieList.jsx';
 
 const setup = (movies=[]) => {
   const mockUseMovies = jest.fn().mockReturnValue([movies, jest.fn()]);
