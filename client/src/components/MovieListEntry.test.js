@@ -14,7 +14,6 @@ const assertForTextItem = (wrapper, item) => {
 }
 
 describe('MovieListEntry component' => {
-
   let wrapper = setup(0, sampleData[0]);
 
   test('renders without error', () => {
@@ -28,7 +27,20 @@ describe('MovieListEntry component' => {
   });
 
   test('renders a title', () => {
-    assertForTextItem(wrapper, 'title')
+    assertForTextItem(wrapper, 'title');
+  });
+
+  test('renders a year', () => {
+    assertForTextItem(wrapper, 'year');
+  });
+
+  test('renders a genre', () => {
+    assertForTextItem(wrapper, 'genre');
+  });
+
+  test('renders a toggle watch button', () => {
+    const toggleWatch = findByTestAttr(wrapper, 'movielistentry-togglebutton');
+    expect(toggleWatch.length).not.toBe(0);
   });
 });
 
