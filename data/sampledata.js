@@ -14,7 +14,8 @@ const sampleData = [
     poster: 'https://m.media-amazon.com/images/M/MV5BMTUxNjg3MzExOF5BMl5BanBnXkFtZTgwMDc1NjQyMTI@._V1_SX300.jpg',
     metascore: 58,
     imdbRating: 7.4,
-    production: 'Warner Bros.'
+    production: 'Warner Bros.',
+    watched: false
   },
   {
     movieListId: 2,
@@ -31,7 +32,8 @@ const sampleData = [
     poster: 'https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg',
     metascore: 90,
     imdbRating: 8.6,
-    production: 'Lucasfilm Ltd.'
+    production: 'Lucasfilm Ltd.',
+    watched: false
   },
   {
     movieListId: 3,
@@ -48,7 +50,8 @@ const sampleData = [
     poster: 'https://m.media-amazon.com/images/M/MV5BMzFkM2YwOTQtYzk2Mi00N2VlLWE3NTItN2YwNDg1YmY0ZDNmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg',
     metascore: 63,
     imdbRating: 7.6,
-    production: '20th Century Fox, Hughes Entertainment'
+    production: '20th Century Fox, Hughes Entertainment',
+    watched: false
   },
   {
     movieListId: 4,
@@ -65,7 +68,8 @@ const sampleData = [
     poster: 'https://m.media-amazon.com/images/M/MV5BYTFiMjk0OTAtZGJkNC00NTUzLTg3YmItYzBkNjM1ODFhMmFkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg',
     metascore: 42,
     imdbRating: 6.6,
-    production: '20th Century Fox'
+    production: '20th Century Fox',
+    watched: false
   },
 ]
 

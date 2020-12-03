@@ -17,6 +17,7 @@ const responseObjectAssertions = (obj) => {
   expect(obj).toHaveProperty('poster');
   expect(obj).toHaveProperty('metascore');
   expect(obj).toHaveProperty('imdbRating');
+  expect(obj).toHaveProperty('watched');
 
   expect(typeof obj.movieListId).toBe('number');
   expect(typeof obj.title).toBe('string');
@@ -33,6 +34,7 @@ const responseObjectAssertions = (obj) => {
   expect(typeof obj.metascore).toBe('number');
   expect(typeof obj.imdbRating).toBe('number');
   expect(typeof obj.production).toBe('string');
+  expect(typeof obj.watched).toBe('boolean');
 }
 
 describe('GET route', () => {

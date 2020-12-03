@@ -50,7 +50,8 @@ app.post('/api/movies', (req, res) => {
             poster: 'No poster available',
             metascore: 0,
             imdbRating: 0,
-            production: 'No info available '
+            production: 'No info available',
+            watched: false
           };
         } else {
           resultData = {
@@ -68,7 +69,8 @@ app.post('/api/movies', (req, res) => {
             poster: data.Poster,
             metascore: Number(data.Metascore),
             imdbRating: Number(data.imdbRating),
-            production: data.Production
+            production: data.Production,
+            watched: false
           };
         }
 
