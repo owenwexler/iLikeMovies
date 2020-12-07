@@ -17,7 +17,9 @@ const MovieProvider = (props) => {
 
   const value = React.useMemo(() => [movies, setMovies], [movies]);
 
-  return <movieContext.Provider value={value} {...props} />
+  return (
+    <movieContext.Provider value={value} {...props} />
+  );
 }
 
 export default { MovieProvider, useMovies };
