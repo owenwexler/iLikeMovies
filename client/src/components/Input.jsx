@@ -1,8 +1,7 @@
 import React from 'react';
-import movieContext from '../../contexts/movieContext';
 
 const Input = () => {
-  const [movies, setMovies] = movieContext.useMovies();
+  const [movies, setMovies] = React.useState('')
   const [currentMovie, setCurrentMovie] = React.useState('');
 
   const postMovie = (movie) => {

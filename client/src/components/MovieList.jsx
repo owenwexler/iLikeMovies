@@ -1,8 +1,7 @@
 import React from 'react'
-import movieContext from '../../contexts/movieContext.js';
 
 const MovieList = () => {
-  const [movies] = movieContext.useMovies();
+  // const [movies] = movieContext.useMovies();
 
   let contents;
 
