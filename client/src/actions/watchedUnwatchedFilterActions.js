@@ -16,4 +16,4 @@ const setUnwatched = () => {
   return { type: 'SET_UNWATCHED' };
 }
 
-export { watchedUnwatchedFilterActionTypes }
+export { watchedUnwatchedFilterActionTypes, setAll, setWatched, setUnwatched }

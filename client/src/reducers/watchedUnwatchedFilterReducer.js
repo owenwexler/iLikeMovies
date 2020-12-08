@@ -4,18 +4,16 @@
  * @param {action} action - action to dispatch
  */
 
-export const watchedUnwatchedFilterInitState = {
-  watchedUnwatchedFilter: 'all'
-};
+export const watchedUnwatchedFilterInitState = 'all';
 
-export const watchedUnwatchedFilterReducer = (state = watchedUnwatchedFilterInitState, action) => {
+export const watchedUnwatchedFilter = (state = watchedUnwatchedFilterInitState, action) => {
   switch(action.type) {
     case 'SET_WATCHED':
-      return {...state, watchedUnwatchedFilter: 'watched'};
+      return 'watched';
     case 'SET_UNWATCHED':
-      return {...state, watchedUnwatchedFilter: 'unwatched'};
+      return 'unwatched';
     case 'SET_ALL':
-      return {...state, watchedUnwatchedFilter: 'all'};
+      return 'all';
     default:
       return state;
   }
