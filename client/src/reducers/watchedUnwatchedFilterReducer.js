@@ -14,6 +14,8 @@ export const watchedUnwatchedFilterReducer = (state = watchedUnwatchedFilterInit
       return {...state, watchedUnwatchedFilter: 'watched'};
     case 'SET_UNWATCHED':
       return {...state, watchedUnwatchedFilter: 'unwatched'};
+    case 'SET_ALL':
+      return {...state, watchedUnwatchedFilter: 'all'};
     default:
       return state;
   }

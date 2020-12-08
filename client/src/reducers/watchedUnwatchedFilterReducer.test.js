@@ -15,3 +15,8 @@ test('returns state of `unwatched` upon receiving an action of type `SET_UNWATCH
   const newState = watchedUnwatchedFilterReducer(undefined, { type: watchedUnwatchedFilterActionTypes.SET_UNWATCHED });
   expect(newState).toEqual({watchedUnwatchedFilter: 'unwatched'});
 });
+
+test('returns state of `all` upon receiving an action of type `SET_ALL`', () => {
+  const newState = watchedUnwatchedFilterReducer(undefined, { type: watchedUnwatchedFilterActionTypes.SET_ALL });
+  expect(newState).toEqual({watchedUnwatchedFilter: 'all'});
+});
