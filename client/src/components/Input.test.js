@@ -53,10 +53,10 @@ describe('state controlled input field', () => {
     expect(mockSetCurrentMovie).toHaveBeenCalledWith('');
   })
 
-  // test('movie is posted upon submit button click', () => {
-  //   const submitButton = findByTestAttr(wrapper, 'submit-button');
+  test('movie is posted upon submit button click', () => {
+    const submitButton = findByTestAttr(wrapper, 'submit-button');
 
-  //   submitButton.simulate('click', { preventDefault() {} });
-  //   expect(postMovie).toHaveBeenCalledWith('');
-  // })
+    submitButton.simulate('click', { preventDefault() {} });
+    expect(postMovie).toHaveBeenCalledWith('');
+  })
 });
