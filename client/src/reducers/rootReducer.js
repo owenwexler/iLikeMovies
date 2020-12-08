@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import movies from './movieReducer';
+import watchedUnwatchedFilterReducer from './watchedUnwatchedFilterReducer.js'
 
 export default combineReducers({
-  movies
+  watchedUnwatchedFilterReducer
 })
