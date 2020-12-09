@@ -1,12 +1,7 @@
 import React from 'react';
 
 const Input = () => {
-  const [movies, setMovies] = React.useState('')
   const [currentMovie, setCurrentMovie] = React.useState('');
-
-  const postMovie = (movie) => {
-    console.log(`posting ${movie}`);
-  }
 
   const handleClick = (e) => {
     postMovie(currentMovie);

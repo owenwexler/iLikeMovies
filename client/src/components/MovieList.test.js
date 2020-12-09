@@ -4,7 +4,6 @@ import { createStore } from 'redux';
 import { shallow, mount } from 'enzyme';
 import { findByTestAttr } from '../../../test/testUtils';
 import sampleData from '../../../data/sampleData.js';
-import movieContext from '../../contexts/movieContext.js';
 import MovieList from './MovieList.jsx';
 import rootReducer from '../reducers/rootReducer.js';
 
