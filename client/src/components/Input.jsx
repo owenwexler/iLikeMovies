@@ -14,6 +14,12 @@ const Input = () => {
     e.preventDefault();
   }
 
+  /**
+   * @function handleTextChange
+   * sets the currentMovie local state on change
+   * @param {e} event - event from the DOM element
+   * @returns none
+   */
   const handleTextChange = (e) => {
     setCurrentMovie(e.target.value);
   }

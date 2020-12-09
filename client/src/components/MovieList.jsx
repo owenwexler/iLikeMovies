@@ -1,7 +1,8 @@
 import React from 'react'
+import { useSelector } from "react-redux";
 
 const MovieList = () => {
-  // const [movies] = movieContext.useMovies();
+  const movies = useSelector(state => state.movies);
 
   let contents;
 
