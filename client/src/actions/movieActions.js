@@ -7,7 +7,7 @@ export const movieActionTypes = {
 
 /**
  * Returns Redux Thunk function that initiates an axios request
- *    and dispatches the response as a 'SET_SECRET_WORD' action
+ *    and dispatches the response as a 'SET_MOVIES' action
  * @returns {function} - Redux Thunk function.
  */
 export const getMovies = () => {

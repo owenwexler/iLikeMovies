@@ -31,7 +31,7 @@ const Input = () => {
   return (
     <div data-test="component-input">
       <input data-test="input-box" type="text" value={currentMovie} onChange={handleTextChange} />
-      <button data-test="submit-button" onClick={handleClick} />
+      <button data-test="submit-button" onClick={handleClick}>Add Movie</button>
     </div>
   )
 }

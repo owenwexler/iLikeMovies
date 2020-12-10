@@ -1,10 +1,18 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { findByTestAttr } from '../../../test/testUtils';
+import { Provider } from 'react-redux';
+import { findByTestAttr, storeFactory } from '../../../test/testUtils';
+import rootReducer from '../reducers/rootReducer.js';
+import sampleData from '../../../data/sampledata.js';
 import App from './App';
 
 const setup = () => {
-  return shallow(<App />);
+  let mockStore = storeFactory({movies: sampleData, watchedUnwatchedFilter: 'all'});
+  return mount(
+    <Provider store={mockStore}>
+      <App />
+    </Provider>
+  )
 }
 
 test('App renders without error', () => {
