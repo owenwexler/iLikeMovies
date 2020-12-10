@@ -11,8 +11,6 @@ const MovieList = ({movies}) => {
     contents = movies.map(movie => <MovieListEntry key={movie.movieListId} movie={movie} data-test="movie-list-entry" />);
   }
 
-
-
   return (
     <div data-test="component-movie-list">
       {contents}

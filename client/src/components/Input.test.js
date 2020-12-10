@@ -15,8 +15,8 @@ import sampleData from '../../../data/sampledata.js';
 */
 
 let mockStore = storeFactory({movies: sampleData.slice(0, 3), watchedUnwatchedFilter: 'all'});
-// let origDispatch = mockStore.dispatch;
-// mockStore.dispatch = jest.fn(origDispatch);
+let origDispatch = mockStore.dispatch;
+mockStore.dispatch = jest.fn(origDispatch);
 
 const setup = () => {
   return mount(
@@ -65,7 +65,7 @@ describe('submit button', () => {
 
     submitButton.simulate('click');
 
-    // expect(mockStore.dispatch).toHaveBeenCalledWith(postMovie('PCU'));
+    expect(mockStore.dispatch).toHaveBeenCalled();
     expect(mockSetCurrentMovie).toHaveBeenCalledWith('');
   });
 });
