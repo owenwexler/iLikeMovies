@@ -1,9 +1,10 @@
 /**
- * @function filterMovies -
- * @param {Array of objects} movies // shape must mimic that delivered from the API, otherwise function breaks
+ * @function filterMovies
+ * @param {Array} movies // array of objects -  shape must mimic that delivered from the API, otherwise function breaks
  * @param {String} movieFilter // options - 'all', 'watched', 'unwatched'
- * @returns {Array of objects} movies, filtered according to the movieFilter passed in
+ * @returns {Array} array of objects - movies, filtered according to the movieFilter passed in
  */
+
 export const filterMovies = (movies, movieFilter='all') => {
   if (movieFilter === 'all') {
     return movies.slice();
