@@ -21,3 +21,15 @@ export const getMovies = () => {
       });
   }
 }
+
+export const postMovie = (movieTitle) => {
+  return (dispatch) => {
+    return axios.post(`api/movies?movie=${movieTitle}`)
+      .then (response => {
+        dispatch({
+          type: movieActionTypes.POST_MOVIE,
+          payload: response.data
+        });
+      });
+  }
+}

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from "react-redux";
+import MovieListEntry from './MovieListEntry';
 
 const MovieList = () => {
   const movies = useSelector(state => state.movies);
@@ -9,7 +10,7 @@ const MovieList = () => {
   if (movies.length === 0) {
     contents = <span data-test="movie-instructions"><h3>Add some movies here!</h3></span>
   } else {
-    contents = movies.map(movie => <h3 data-test="movie-list-entry">{movie.title}</h3>)
+    contents = movies.map(movie => <MovieListEntry key={movie.movieListId} movie={movie} data-test="movie-list-entry" />);
   }
 
   return (

@@ -58,7 +58,7 @@ const sampleData = [
     title: 'PCU',
     year: 1994,
     rated: 'PG-13',
-    released: '16 Nov 1990',
+    released: '29 Apr 1994',
     genre: 'Comedy',
     runtime: '79 min',
     director: 'Hart Bochner',

@@ -1,10 +1,19 @@
 import React from 'react';
+import axios from 'axios';
+import { postMovie } from '../actions/movieActions.js';
+import { useDispatch } from 'react-redux';
 
 const Input = () => {
   const [currentMovie, setCurrentMovie] = React.useState('');
+  const dispatch = useDispatch();
 
   const handleClick = (e) => {
-    postMovie(currentMovie);
+    if (currentMovie === '') {
+      console.log('Please enter in a movie');
+      return;
+    }
+
+    dispatch(postMovie(currentMovie));
     setCurrentMovie('');
     e.preventDefault();
   }

@@ -11,8 +11,8 @@ import { middlewares } from '../client/src/configureStore';
  * @function storeFactory
  * @returns {Store} - Redux store.
  */
-export const storeFactory = (initialState) => {
-  const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore)
+export const storeFactory = (initialState={movies: [], watchedUnwatchedFilter: true}) => {
+  const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
   return createStoreWithMiddleware(rootReducer, initialState);
 }
 

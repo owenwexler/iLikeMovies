@@ -2,13 +2,10 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { shallow, mount } from 'enzyme';
-import { findByTestAttr } from '../../../test/testUtils';
-
+import { findByTestAttr, storeFactory } from '../../../test/testUtils';
+import { postMovie } from '../actions/movieActions.js';
 import rootReducer from '../reducers/rootReducer.js';
-
-import moxios from 'moxios';
 import Input from './Input.jsx';
-
 import sampleData from '../../../data/sampledata.js';
 
 /**
@@ -16,8 +13,11 @@ import sampleData from '../../../data/sampledata.js';
 * @param {object} testValues - Context and props values for this specific test.
 * @returns {ReactWrapper} - Wrapper for Input component and providers
 */
+
+let mockStore;
+
 const setup = (movies=[]) => {
-  const mockStore = createStore(rootReducer, {movies: movies});
+  mockStore = storeFactory({movies: movies, watchedUnwatchedFilter: 'all'});
   return mount(
     <Provider store={mockStore}>
       <Input />
@@ -38,7 +38,7 @@ describe('state controlled input field', () => {
   beforeEach(() => {
     mockSetCurrentMovie.mockClear();
     React.useState = jest.fn(() => ["", mockSetCurrentMovie]);
-    wrapper = setup([]);
+    wrapper = setup(sampleData);
   });
 
   test('state updates with value of input box upon change', () => {
@@ -50,42 +50,24 @@ describe('state controlled input field', () => {
     expect(mockSetCurrentMovie).toHaveBeenCalledWith('movie');
   });
 
-  test('field is cleared upon submit button click', () => {
-    const submitButton = findByTestAttr(wrapper, 'submit-button');
-
-    submitButton.simulate('click', { preventDefault() {} });
-    expect(mockSetCurrentMovie).toHaveBeenCalledWith('');
-  })
 });
 
-describe('submit button updating movie in store', () => {
+describe('submit button', () => {
   let mockSetCurrentMovie = jest.fn();
   let wrapper;
 
   beforeEach(() => {
-    mockSetCurrentMovie.mockClear();
-    moxios.install();
-    React.useState = jest.fn(() => ["", mockSetCurrentMovie]);
+    React.useState = jest.fn(() => ['PCU', mockSetCurrentMovie]);
     wrapper = setup(sampleData.slice(0, 2));
   });
 
-  afterEach(() => {
-    moxios.uninstall();
-  });
-
-  test('movie is posted to store upon submit button click', () => {
+  test('postMovie dispatch is called and currentMovie field is cleared on click', () => {
     const submitButton = findByTestAttr(wrapper, 'submit-button');
-    const mockEvent = { target: { value: 'PCU' } };
+    mockStore.dispatch = jest.fn();
 
-    submitButton.simulate('click', mockEvent);
+    submitButton.simulate('click');
 
-    const request = moxios.requests.mostRecent();
-      request.respondWith({
-        status: 200,
-        response: sampleData[3]
-      });
-
-    const newState = store.getState();
-    expect(newState.movies).toEqual(sampleData);
-  })
+    expect(mockStore.dispatch).toHaveBeenCalledWith(postMovie('PCU'));
+    expect(mockSetCurrentMovie).toHaveBeenCalledWith('');
+  });
 });
