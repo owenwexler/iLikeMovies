@@ -40,21 +40,21 @@ describe('watchedUnwatchedToggle', () => {
     expect(unwatchedButton.length).toBe(1);
   });
 
-  test('clicking watched button sets watchedUnwatchedFilter state to watched, () => {
+  test('clicking watched button sets watchedUnwatchedFilter state to watched', () => {
     watchedButton.simulate('click');
 
     expect(mockStore.dispatch).toHaveBeenCalled();
     expect(mockStore.getState().watchedUnwatchedFilter).toBe('watched');
   });
 
-  test('clicking unwatched button sets watchedUnwatchedFilter state to unwatched, () => {
+  test('clicking unwatched button sets watchedUnwatchedFilter state to unwatched', () => {
     unwatchedButton.simulate('click');
 
     expect(mockStore.dispatch).toHaveBeenCalled();
     expect(mockStore.getState().watchedUnwatchedFilter).toBe('unwatched');
   });
 
-  test('clicking all button sets watchedUnwatchedFilter state to all, () => {
+  test('clicking all button sets watchedUnwatchedFilter state to all', () => {
     allButton.simulate('click');
 
     expect(mockStore.dispatch).toHaveBeenCalled();
