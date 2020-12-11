@@ -21,11 +21,15 @@ const setup = () => {
 
 describe('watchedUnwatchedToggle', () => {
   let wrapper;
+  let allButton;
+  let watchedButton;
+  let unwatchedButton;
+
   beforeEach(() => {
     wrapper = setup();
-    const allButton = findByTestAttr(wrapper, 'button-all');
-    const watchedButton = findByTestAttr(wrapper, 'button-watched');
-    const unwatchedButton = findByTestAttr(wrapper, 'button-unwatched');
+    allButton = findByTestAttr(wrapper, 'button-all');
+    watchedButton = findByTestAttr(wrapper, 'button-watched');
+    unwatchedButton = findByTestAttr(wrapper, 'button-unwatched');
   })
 
   test('component renders without error', () => {
