@@ -4,15 +4,13 @@ import WatchedUnWatchedToggle from './WatchedUnWatchedToggle.jsx';
 import MovieList from './MovieList.jsx';
 import { useSelector, useDispatch } from "react-redux";
 import { getMovies } from '../actions/movieActions.js';
-import { filterMovies } from '../helper/helper.js';
+
 
 const App = () => {
   let filteredMovies;
   const movies = useSelector(state => state.movies);
   const watchedUnwatchedFilter = useSelector(state => state.watchedUnwatchedFilter);
   const dispatch = useDispatch();
-
-  filteredMovies = filterMovies(movies, watchedUnwatchedFilter).reverse();
 
   React.useEffect(() => {
     dispatch(getMovies());
@@ -25,7 +23,7 @@ const App = () => {
 
       <WatchedUnWatchedToggle />
       <Input />
-      <MovieList movies={filteredMovies} watchedUnwatchedFilter={watchedUnwatchedFilter} />
+      <MovieList movies={movies} watchedUnwatchedFilter={watchedUnwatchedFilter} />
 
     </div>
   )

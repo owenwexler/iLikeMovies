@@ -31,7 +31,7 @@ describe('if no movies are in the database', () => {
 describe('if there are movies', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = setup(sampleData);
+    wrapper = setup(sampleData, 'all');
   });
 
   test ('renders without error', () => {
@@ -68,42 +68,22 @@ describe('if watched is checked but no movies are watched', () => {
 });
 
 describe('if watched is checked and one movie is watched', () => {
-  let wrapper;
-  let oneMovieWatched = sampleData.slice();
-  oneMovieWatched[0].watched = true;
-  console.log('contents of oneMovieWatched: ', oneMovieWatched);
-  beforeEach(() => {
-    wrapper = setup(oneMovieWatched, 'watched');
-  });
-
-  test ('renders without error', () => {
-    const component = findByTestAttr(wrapper, 'component-movie-list');
-    expect(component.length).toBe(1);
-  });
-
   test('correct number of movies', () => {
+    let oneMovieWatched = sampleData.slice();
+    oneMovieWatched[0].watched = true;
+    let wrapper = setup(oneMovieWatched, 'watched');
     const movieNodes = findByTestAttr(wrapper, 'movie-list-entry');
     expect(movieNodes.length).toBe(1);
   });
 });
 
 describe('if unwatched is checked and one movie is unwatched', () => {
-  let wrapper;
-  let onemovieUnwatched = sampleData.slice();
-  oneMovieUnwatched.forEach(movie => movie.watched = true);
-  oneMovieUnwatched[3].watched = false;
-
-  beforeEach(() => {
-    wrapper = setup(oneMovieUnwatched, 'unwatched');
-  });
-
-  test ('renders without error', () => {
-    const component = findByTestAttr(wrapper, 'component-movie-list');
-    expect(component.length).toBe(1);
-  });
-
   test('correct number of movies', () => {
+    let oneMovieUnwatched = sampleData.slice();
+    oneMovieUnwatched.forEach(movie => movie.watched = true);
+    oneMovieUnwatched[3].watched = false;
+    let wrapper = setup(oneMovieUnwatched, 'unwatched');
     const movieNodes = findByTestAttr(wrapper, 'movie-list-entry');
-    expect(movieNodes.length).toBe(3);
+    expect(movieNodes.length).toBe(1);
   });
 });
