@@ -58,3 +58,15 @@ describe('postMovie action creator', () => {
       });
   });
 });
+
+// describe('toggleMovieWatched action creator', () => {
+//   beforeEach(() => {
+//     moxios.install();
+//   });
+//   afterEach(() => {
+//     moxios.uninstall();
+//   });
+
+//   const store = storeFactory({movies: sampleData, watchedUnwatchedFilter: 'all'});
+
+// });

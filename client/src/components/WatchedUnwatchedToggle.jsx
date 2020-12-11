@@ -4,7 +4,8 @@ import { setAll, setWatched, setUnwatched } from '../actions/watchedUnwatchedFil
 
 const WatchedUnwatchedToggle = () => {
   const watchedUnwatchedFilter = useSelector(state => state.watchedUnwatchedFilter);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
   return (
     <div data-test="watched-unwatched-component">
       <input type="radio"
@@ -30,7 +31,6 @@ const WatchedUnwatchedToggle = () => {
       checked={watchedUnwatchedFilter === 'unwatched'}
       onClick={() => dispatch(setUnwatched())}
       /> To Watch
-watched
     </div>
   )
 }

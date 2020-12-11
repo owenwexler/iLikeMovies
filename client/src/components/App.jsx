@@ -25,7 +25,7 @@ const App = () => {
 
       <WatchedUnWatchedToggle />
       <Input />
-      <MovieList movies={filteredMovies}/>
+      <MovieList movies={filteredMovies} watchedUnwatchedFilter={watchedUnwatchedFilter} />
 
     </div>
   )
