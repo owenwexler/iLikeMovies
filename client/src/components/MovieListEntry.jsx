@@ -1,7 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {useDispatch } from 'react-redux';
+
+import { toggleMovieWatched } from '../actions/movieActions.js';
+
 const MovieListEntry = ({movie}) => {
+  const dispatch = useDispatch();
+  let watchedUnwatchedButtonAttributes;
+
+  if (movie.watched) {
+    watchedUnwatchedButtonAttributes = ['Watched', 'btn-success'];
+  } else {
+    watchedUnwatchedButtonAttributes = ['To Watch', 'btn-primary'];
+  }
+
   return (
     <div data-test="component-movie-list-entry">
       <div>
@@ -21,8 +34,10 @@ const MovieListEntry = ({movie}) => {
         <p data-test="movielistentry-actors">
           {movie.actors}
         </p>
-        <button data-test="movielistentry-togglebutton">
-          To Watch
+        <button
+          data-test="movielistentry-togglebutton"
+          onClick={() => dispatch(toggleMovieWatched(movie.movieListId))}>
+            {watchedUnwatchedButtonAttributes[0]}
         </button>
       </div>
     </div>

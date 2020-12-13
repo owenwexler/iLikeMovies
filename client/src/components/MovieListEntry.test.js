@@ -1,11 +1,17 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { findByTestAttr } from '../../../test/testUtils';
+import { Provider } from 'react-redux';
+import { findByTestAttr, storeFactory } from '../../../test/testUtils';
 import sampleData from '../../../data/sampleData.js';
 import MovieListEntry from './MovieListEntry.jsx';
 
 const setup = (key, inputMovie={}) => {
-  return shallow(<MovieListEntry key={key}data-test="movie-list-entry" movie={inputMovie} />);
+  let mockStore = storeFactory({movies: sampleData, watchedUnwatchedFilter: 'all'});
+  return mount(
+    <Provider store={mockStore}>
+      <MovieListEntry key={key}data-test="movie-list-entry" movie={inputMovie} />
+    </Provider>
+  )
 };
 
 const assertForTextItem = (wrapper, item) => {
