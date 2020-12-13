@@ -35,5 +35,10 @@ export const postMovie = (movieTitle) => {
 }
 
 export const toggleMovieWatched = (id) => {
-
+  return (dispatch) => {
+    return axios.put(`api/movie/watched?id=${id}`)
+      .then (response => {
+        dispatch(getMovies());
+      });
+  }
 }
