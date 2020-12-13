@@ -1,7 +1,7 @@
 import moxios from 'moxios';
 
 import { storeFactory } from '../../../test/testUtils';
-import { getMovies, postMovie } from './movieActions';
+import { getMovies, postMovie, toggleMovieWatched } from './movieActions';
 import sampleData from '../../../data/sampledata.js';
 
 describe('getMovies action creator', () => {
@@ -67,9 +67,24 @@ describe('toggleMovieWatched action creator', () => {
     moxios.uninstall();
   });
 
-  const store = storeFactory({movies: sampleData, watchedUnwatchedFilter: 'all'});
+  test('action succesfully updates watchedUnwatchedFilter for a valid movie ID', () => {
+    const store = storeFactory({movies: sampleData, watchedUnwatchedFilter: 'all'});
 
-  console.log('asaskfjalwkfj');
+    let putData = sampleData.slice();
+    putData[0].watchedUnwatchedFilter = true;
 
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200,
+        response: putData,
+      });
+    });
 
+    return store.dispatch(toggleMovieWatched(1))
+      .then(() => {
+        const newState = store.getState();
+        expect(newState.movies).toEqual(putData);
+      });
+  });
 });

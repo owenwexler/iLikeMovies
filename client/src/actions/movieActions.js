@@ -33,3 +33,7 @@ export const postMovie = (movieTitle) => {
       });
   }
 }
+
+export const toggleMovieWatched = (id) => {
+
+}
