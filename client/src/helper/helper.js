@@ -5,12 +5,14 @@
  * @returns {Array} array of objects - movies, filtered according to the movieFilter passed in
  */
 
+// I think this may be the only code from the original 2020 project that stays :sweat_smile:
+
 export const filterMovies = (movies, movieFilter='all') => {
   if (movieFilter === 'all') {
-    return movies.slice();
+    return movies;
   } else if (movieFilter === 'watched') {
-    return movies.slice().filter(movie => movie.watched === true);
+    return movies.filter(movie => movie.watched === true);
   } else if (movieFilter === 'unwatched') {
-    return movies.slice().filter(movie => movie.watched === false);
+    return movies.filter(movie => movie.watched === false);
   }
 }

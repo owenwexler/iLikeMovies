@@ -4,6 +4,7 @@ import WatchedUnWatchedToggle from './WatchedUnWatchedToggle.jsx';
 import MovieList from './MovieList.jsx';
 import { useSelector, useDispatch } from "react-redux";
 import { getMovies } from '../actions/movieActions.js';
+import { getMoviesFromAPI } from '../helper/apiCalls.js';
 
 
 const App = () => {

@@ -108,3 +108,7 @@ omdb.config.js
 
 # Webpack Bundle
 bundle.js
+
+#env
+.env
+env.js

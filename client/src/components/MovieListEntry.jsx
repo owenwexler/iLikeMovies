@@ -36,7 +36,7 @@ const MovieListEntry = ({movie}) => {
         </p>
         <button
           data-test="movielistentry-togglebutton"
-          onClick={() => dispatch(toggleMovieWatched(movie.movieListId))}>
+          onClick={() => dispatch(toggleMovieWatched(movie.title))}>
             {watchedUnwatchedButtonAttributes[0]}
         </button>
       </div>

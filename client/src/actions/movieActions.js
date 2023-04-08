@@ -1,5 +1,12 @@
 import axios from 'axios';
 
+import {
+  getMoviesFromAPI,
+  postMovieToAPI,
+  toggleMovieToAPI,
+  deleteMovieToAPI
+} from '../helper/apiCalls';
+
 export const movieActionTypes = {
   SET_MOVIES: 'SET_MOVIES',
   POST_MOVIE: 'POST_MOVIE'
@@ -12,11 +19,11 @@ export const movieActionTypes = {
  */
 export const getMovies = () => {
   return (dispatch) => {
-    return axios.get('api/movies/')
-      .then(response => {
+    return getMoviesFromAPI()
+      .then(data => {
         dispatch({
           type: movieActionTypes.SET_MOVIES,
-          payload: response.data
+          payload: data
         });
       });
   }
@@ -24,21 +31,24 @@ export const getMovies = () => {
 
 export const postMovie = (movieTitle) => {
   return (dispatch) => {
-    return axios.post(`api/movies?movie=${movieTitle}`)
-      .then (response => {
+    return postMovieToAPI()
+      .then(data => {
         dispatch({
-          type: movieActionTypes.POST_MOVIE,
-          payload: response.data
+          type: movieActionTypes.SET_MOVIES,
+          payload: data
         });
       });
   }
 }
 
-export const toggleMovieWatched = (id) => {
+export const toggleMovieWatched = (movie) => {
   return (dispatch) => {
-    return axios.put(`api/movie/watched?id=${id}`)
-      .then (response => {
-        dispatch(getMovies());
+    return toggleMovieToAPI(movie)
+      .then(data => {
+        dispatch({
+          type: movieActionTypes.SET_MOVIES,
+          payload: data
+        });
       });
   }
 }
