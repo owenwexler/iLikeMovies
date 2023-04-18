@@ -39,6 +39,9 @@ build/Release
 
 # Dependency directories
 node_modules/
+dist/
+dist-ssr/
+build/
 jspm_packages/
 
 # TypeScript v1 declaration files
@@ -111,4 +114,6 @@ bundle.js
 
 #env
 .env
+.env.local
+.env.development
 env.js
