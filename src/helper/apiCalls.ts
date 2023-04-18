@@ -82,7 +82,7 @@ const toggleMovieToAPI = async (movie: string) => {
 const deleteMovieToAPI = async (movie: string) => {
   try {
     const { data } = await axios.delete<IMovieAPIResponse>(
-      `${VITE_API_URL}/${toggleMovieWatched}`,
+      `${VITE_API_URL}/${deleteMovie}`,
       {
         params: {
           movie
