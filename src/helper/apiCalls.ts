@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { IMovie } from '../interfaces/IMovie';
+import { Movie } from '../interfaces/Movie';
 
-interface IMovieAPIResponse {
-  data: IMovie[]
+interface MovieAPIResponse {
+  data: Movie[]
 }
 
 const routes = {
@@ -23,7 +23,7 @@ const { VITE_API_URL, VITE_API_KEY } = import.meta.env;
 
 const getMoviesFromAPI = async () => {
   try {
-    const { data } = await axios.get<IMovieAPIResponse>(
+    const { data } = await axios.get<MovieAPIResponse>(
       `${VITE_API_URL}/${getMovies}`,
       {
         params: {},
@@ -41,7 +41,7 @@ const getMoviesFromAPI = async () => {
 
 const postMovieToAPI = async (movie: string) => {
   try {
-    const { data } = await axios.post<IMovieAPIResponse>(
+    const { data } = await axios.post<MovieAPIResponse>(
       `${VITE_API_URL}/${postMovie}`,
       {
         params: {
@@ -61,7 +61,7 @@ const postMovieToAPI = async (movie: string) => {
 
 const toggleMovieToAPI = async (movie: string) => {
   try {
-    const { data } = await axios.put<IMovieAPIResponse>(
+    const { data } = await axios.put<MovieAPIResponse>(
       `${VITE_API_URL}/${toggleMovieWatched}`,
       {
         params: {
@@ -81,7 +81,7 @@ const toggleMovieToAPI = async (movie: string) => {
 
 const deleteMovieToAPI = async (movie: string) => {
   try {
-    const { data } = await axios.delete<IMovieAPIResponse>(
+    const { data } = await axios.delete<MovieAPIResponse>(
       `${VITE_API_URL}/${deleteMovie}`,
       {
         params: {

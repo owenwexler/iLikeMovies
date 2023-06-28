@@ -1,10 +1,10 @@
 import React from 'react';
 
 
-import type { IMovie } from '../interfaces/IMovie';
+import type { Movie } from '../interfaces/Movie';
 
 interface MovieListEntryProps {
-  movie: IMovie
+  movie: Movie;
 }
 
 const MovieListEntry: React.FC<MovieListEntryProps> = ({ movie }) => {
@@ -46,3 +46,14 @@ const MovieListEntry: React.FC<MovieListEntryProps> = ({ movie }) => {
 }
 
 export default MovieListEntry;
+
+/*
+<div className="bg-white shadow-md rounded-md p-4 sm:flex sm:items-center sm:justify-start">
+  <img src="https://via.placeholder.com/60" alt="placeholder" class="w-16 h-16 rounded-full object-cover mr-4 mb-4 sm:mb-0">
+  <div>
+    <h2 class="text-lg font-semibold mb-2">Header</h2>
+    <h3 class="text-sm font-medium text-gray-500 mb-1">Subheader 1</h3>
+    <h3 class="text-sm font-medium text-gray-500">Subheader 2</h3>
+  </div>
+</div>
+*/

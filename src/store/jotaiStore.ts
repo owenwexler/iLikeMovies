@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
-import { IMovie } from '../interfaces/IMovie';
+import { Movie } from '../interfaces/Movie';
 
-const movieAtom = atom<IMovie[]>([]);
+const movieAtom = atom<Movie[]>([]);
 const watchedUnwatchedFilterAtom = atom<'all' | 'watched' | 'unwatched'>('all');
 
 export {

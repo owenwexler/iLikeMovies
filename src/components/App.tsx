@@ -3,7 +3,7 @@ import Input from './Input';
 import WatchedUnWatchedToggle from './WatchedUnwatchedToggle';
 import MovieList from './MovieList';
 
-import type { IMovie } from '../interfaces/IMovie';
+import type { Movie } from '../interfaces/Movie';
 
 import { getMoviesFromAPI } from '../helper/apiCalls.js';
 
@@ -25,7 +25,7 @@ const App = () => {
     getMoviesFromAPI()
       .then((data) => {
         const unknownData = data as unknown;
-        const typedData = unknownData as IMovie[]
+        const typedData = unknownData as Movie[]
         setMovies(typedData);
       })
       .catch(err => console.error(err))

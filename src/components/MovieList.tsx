@@ -2,10 +2,10 @@ import React from 'react'
 import MovieListEntry from './MovieListEntry';
 import { filterMovies } from '../helper/helper.js';
 
-import type { IMovie } from '../interfaces/IMovie';
+import type { Movie } from '../interfaces/Movie';
 
 interface MovieListProps {
-  movies: IMovie[],
+  movies: Movie[],
   watchedUnwatchedFilter: 'all' | 'watched' | 'unwatched'
 }
 
@@ -17,7 +17,7 @@ const MovieList: React.FC<MovieListProps> = ({movies, watchedUnwatchedFilter}) =
 
   let noWatched = (watchedUnwatchedFilter === 'watched' && watchedMovies.length === 0);
 
-  let filteredMovies: IMovie[] | undefined = filterMovies(movies, watchedUnwatchedFilter);
+  let filteredMovies: Movie[] | undefined = filterMovies(movies, watchedUnwatchedFilter);
 
   let reversedFilteredMovies = filteredMovies?.reverse();
 

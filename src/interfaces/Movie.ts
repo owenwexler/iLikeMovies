@@ -1,6 +1,6 @@
-import { IMovieRating } from "./IMovieRating";
+import { MovieRating } from "./MovieRating";
 
-interface IMovie {
+interface Movie {
   title: string;
   year: string;
   rated: string;
@@ -15,7 +15,7 @@ interface IMovie {
   country: string;
   awards: string;
   poster: string;
-  ratings: IMovieRating[];
+  ratings: MovieRating[];
   metascore: string;
   imdbRating: string;
   imdbVotes: string;
@@ -30,5 +30,5 @@ interface IMovie {
 }
 
 export type {
-  IMovie
+  Movie
 }
