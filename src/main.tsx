@@ -1,13 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
 import { Provider as JotaiGlobalStateProvider } from 'jotai';
 
 import App from './components/App';
 
-ReactDOM.render(
+import './main.css';
+
+const domNode = document.getElementById('root') as Element | DocumentFragment;
+const root = ReactDOM.createRoot(domNode);
+
+root.render(
   <JotaiGlobalStateProvider>
     <App />
-  </JotaiGlobalStateProvider>,
-  document.getElementById('root')
+  </JotaiGlobalStateProvider>
 );

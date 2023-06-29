@@ -13,6 +13,7 @@ import {
 } from '../store/jotaiStore';
 
 import { useAtom } from 'jotai';
+import Navbar from './Navbar';
 
 const App = () => {
   let filteredMovies;
@@ -32,15 +33,17 @@ const App = () => {
   }, [])
 
   return (
-    <div data-test="component-app">
-      <h1>iLikeMovies</h1>
-      <h3>Looking at {watchedUnwatchedFilter} movies</h3>
+    <>
+      <Navbar />
+      <div className="bg-gray-800 text-white" data-test="component-app">
+        <h1>iLikeMovies</h1>
+        <h3>Looking at {watchedUnwatchedFilter} movies</h3>
 
-      <WatchedUnWatchedToggle />
-      <Input />
-      <MovieList movies={movies} watchedUnwatchedFilter={watchedUnwatchedFilter} />
+        <WatchedUnWatchedToggle />
+        <MovieList movies={movies} watchedUnwatchedFilter={watchedUnwatchedFilter} />
 
-    </div>
+      </div>
+    </>
   )
 }
 
