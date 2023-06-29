@@ -2,6 +2,7 @@ import React from 'react';
 
 
 import type { Movie } from '../interfaces/Movie';
+import RoundButton from './style/RoundButton';
 
 interface MovieListEntryProps {
   movie: Movie;
@@ -17,12 +18,32 @@ const MovieListEntry: React.FC<MovieListEntryProps> = ({ movie }) => {
   }
 
   return (
-    <div data-test="component-movie-list-entry">
-      <div>
-        <img data-test="movielistentry-image" src={movie.poster} />
+    <>
+      <div className="bg-gray-900 shadow-md rounded-none p-4 sm:flex sm:items-center sm:justify-start">
+        <img src={movie.poster} alt="placeholder" className="w-[150px] h-[150px] rounded-none object-cover mr-4 mb-4 sm:mb-0" />
+        <div>
+          <h2 className="text-lg font-semibold mb-2">{movie.title}</h2>
+          <h3 className="text-sm font-medium text-gray-200 mb-1">{movie.year}</h3>
+          <h3 className="text-sm font-medium text-gray-200">{movie.genre}</h3>
+          <h3 className="text-xs font-medium text-gray-200 mb-3">{movie.actors}</h3>
+          <RoundButton
+            buttonId="movie-add"
+            ariaLabel="add a movie"
+            onClick={() => console.log('C L I C K E D')}
+          >
+            WATCHED
+          </RoundButton>
+        </div>
       </div>
+    </>
+  )
+}
 
-      <div>
+export default MovieListEntry;
+
+/*
+
+<div>
         <h3 data-test="movielistentry-title">
           {movie.title}
         </h3>
@@ -42,18 +63,4 @@ const MovieListEntry: React.FC<MovieListEntryProps> = ({ movie }) => {
         </button>
       </div>
     </div>
-  )
-}
-
-export default MovieListEntry;
-
-/*
-<div className="bg-white shadow-md rounded-md p-4 sm:flex sm:items-center sm:justify-start">
-  <img src="https://via.placeholder.com/60" alt="placeholder" class="w-16 h-16 rounded-full object-cover mr-4 mb-4 sm:mb-0">
-  <div>
-    <h2 class="text-lg font-semibold mb-2">Header</h2>
-    <h3 class="text-sm font-medium text-gray-500 mb-1">Subheader 1</h3>
-    <h3 class="text-sm font-medium text-gray-500">Subheader 2</h3>
-  </div>
-</div>
 */

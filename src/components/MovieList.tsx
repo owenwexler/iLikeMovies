@@ -32,7 +32,7 @@ const MovieList: React.FC<MovieListProps> = ({movies, watchedUnwatchedFilter}) =
   }
 
   return (
-    <div data-test="component-movie-list">
+    <div className="bg-gray-900 flex flex-row" data-test="component-movie-list">
       {noWatched ? <span data-test="no-watched-alert"><h3>No movies watched.  Showing all movies.</h3></span> : null}
       {contents}
     </div>

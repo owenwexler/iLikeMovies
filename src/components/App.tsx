@@ -35,13 +35,16 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-gray-800 text-white mt-6" data-test="component-app">
-
-        <h3>Looking at {watchedUnwatchedFilter} movies</h3>
-
-        <MovieList movies={movies} watchedUnwatchedFilter={watchedUnwatchedFilter} />
-
-      </div>
+        <br />
+        <br />
+        <main className="bg-gray-900 max-w-full max-h-full">
+          <div className="flex flex-row items-center justify-center text-center py-6 bg-gray-900 text-white align-center mt-4">
+            <h3 className="text-2xl">Looking at {watchedUnwatchedFilter} movies</h3>
+          </div>
+          <div className="bg-gray-900 text-white" data-test="component-app">
+            <MovieList movies={movies} watchedUnwatchedFilter={watchedUnwatchedFilter} />
+          </div>
+        </main>
     </>
   )
 }

@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-gray-800 fixed w-full top-0 z-100 border border-gray-700 shadow-md">
+    <nav className="bg-gray-900 fixed w-full top-0 z-100 border border-gray-700 shadow-md">
       <div className="flex items-center justify-between px-2 py-3 sm:px-1 lg:px-1">
         <span className="text-white font-light text-3xl ml-6 max-sm:ml-1">iLikeMovies</span>
         <div className="flex justify-center items-center space-x-3">
