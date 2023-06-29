@@ -35,11 +35,10 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-gray-800 text-white" data-test="component-app">
-        <h1>iLikeMovies</h1>
+      <div className="bg-gray-800 text-white mt-6" data-test="component-app">
+
         <h3>Looking at {watchedUnwatchedFilter} movies</h3>
 
-        <WatchedUnWatchedToggle />
         <MovieList movies={movies} watchedUnwatchedFilter={watchedUnwatchedFilter} />
 
       </div>

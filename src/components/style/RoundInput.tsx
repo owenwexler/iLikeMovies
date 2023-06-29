@@ -4,7 +4,7 @@ interface RoundInputProps {
   inputId: string;
   ariaLabel: string;
   placeholder: string;
-  width: '1/2' | '1/3' | '1/4' | '2/3' | 'full'
+  width: '1/2' | '1/3' | '1/4' | '2/3' | '3/4' | 'full';
   currentValue: string;
   setCurrentValue: Dispatch<React.SetStateAction<string>>;
 }
