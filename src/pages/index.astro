@@ -1,0 +1,29 @@
+---
+import PageCard from '../components/style/PageCard.astro';
+import { buttonClasses } from '../components/style/twClasses/buttonClasses';
+
+const host = import.meta.env.HOST_URL;
+const testOMDBResponse = await fetch(`${host}/api/movie/title?title=lean+on+me`);
+const testOMDBData = await testOMDBResponse.json();
+
+
+---
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.png" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>iLikeMovies</title>
+	</head>
+    <body class="bg-gradient-to-r from-[#020e33] to-[#02185c]">
+    <div class="flex flex-col items-center justify-center text-center">
+      <PageCard>
+        <h1 class="text-white text-md">{JSON.stringify(testOMDBData)}</h1>
+      </PageCard>
+      <button class={buttonClasses}>
+        CLICK ME
+      </button>
+    </div>
+	</body>
+</html>

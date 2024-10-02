@@ -1,4 +1,4 @@
-import { MovieRating } from "./MovieRating";
+import { Rating } from "./Rating";
 
 interface Movie {
   title: string;
@@ -15,7 +15,7 @@ interface Movie {
   country: string;
   awards: string;
   poster: string;
-  ratings: MovieRating[];
+  ratings: Rating[];
   metascore: string;
   imdbRating: string;
   imdbVotes: string;
@@ -25,8 +25,7 @@ interface Movie {
   boxOffice: string;
   production: string;
   website: string;
-  response: string;
-  watched: boolean;
+  response: boolean;
 }
 
 export type {

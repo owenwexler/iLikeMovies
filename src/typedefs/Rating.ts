@@ -1,8 +1,8 @@
-interface MovieRating {
+interface Rating {
   source: string;
   value: string;
 }
 
 export type {
-  MovieRating
+  Rating
 }
