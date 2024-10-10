@@ -1,12 +1,15 @@
 ---
-import PageCard from '../components/style/PageCard.astro';
+import MovieListItem from '../components/MovieList/MovieListItem.astro';
 import { buttonClasses } from '../components/style/twClasses/buttonClasses';
+
+import { getMoviesByUserId } from '../db/models/userMovies';
 
 const host = import.meta.env.HOST_URL;
 const testOMDBResponse = await fetch(`${host}/api/movie/title?title=lean+on+me`);
 const testOMDBData = await testOMDBResponse.json();
 
-
+const testUserDataResponse = await getMoviesByUserId({ inputUserId: '01J9W2QWVYK5SA1DJ06Q21ZCFW' });
+console.log(testUserDataResponse);
 ---
 <html lang="en">
 	<head>
@@ -18,9 +21,7 @@ const testOMDBData = await testOMDBResponse.json();
 	</head>
     <body class="bg-gradient-to-r from-[#020e33] to-[#02185c]">
     <div class="flex flex-col items-center justify-center text-center">
-      <PageCard>
-        <h1 class="text-white text-md">{JSON.stringify(testOMDBData)}</h1>
-      </PageCard>
+      <MovieListItem movie={testOMDBData} />
       <button class={buttonClasses}>
         CLICK ME
       </button>
