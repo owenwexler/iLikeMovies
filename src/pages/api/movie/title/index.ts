@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getOMDBOfflineMovieByTitle } from '../../../../../omdb/omdbOffline/omdbOffline';
-import { getOMDBMovieByTitle } from '../../../../../omdb/omdb';
+import { getOMDBMovie } from '../../../../../omdb/omdb';
 
 export const GET: APIRoute = async ({ request }) => {
   const searchParams = new URL(request.url).searchParams;
@@ -11,13 +11,13 @@ export const GET: APIRoute = async ({ request }) => {
   const omdbAPIKey = env.OMDB_API_KEY;
   const nodeEnv = env.NODE_ENV ? env.NODE_ENV : 'development';
   const devMode = nodeEnv === "development" && env.DEV_MODE === 'offline' ? 'offline' : 'online';
-  console.log(devMode);
 
   try {
-    const data = await getOMDBMovieByTitle({
+    const data = await getOMDBMovie({
       movieTitle: title,
       apiKey: omdbAPIKey,
       devMode: devMode,
+      method: 'title'
     });
     return new Response(JSON.stringify(data));
   } catch (err) {

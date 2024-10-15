@@ -8,6 +8,17 @@ const typedOMDBOfflineData = omdbOfflineData
   ? (omdbOfflineData as KeyValueOMDBResponses)
   : ({} as KeyValueOMDBResponses);
 
+const fullOMDBOfflineData: KeyValueOMDBResponses = { ...typedOMDBOfflineData };
+
+for (const key in typedOMDBOfflineData) {
+  const movie = typedOMDBOfflineData[key as keyof typeof typedOMDBOfflineData];
+  const { imdbID } = movie;
+
+  fullOMDBOfflineData[imdbID] = { ...movie };
+}
+
+console.log('fullOMDBOfflineData: ', fullOMDBOfflineData);
+
 const getOMDBOfflineMovieByTitle = (title: string) => {
   const result = typedOMDBOfflineData[title as keyof typeof typedOMDBOffline];
   if (result) {

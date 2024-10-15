@@ -2,13 +2,13 @@
 import MovieListItem from '../components/MovieList/MovieListItem.astro';
 import { buttonClasses } from '../components/style/twClasses/buttonClasses';
 
-import { getMoviesByUserId } from '../db/models/userMovies';
+import { getUserMoviesById } from '../db/models/userMovies';
 
 const host = import.meta.env.HOST_URL;
 const testOMDBResponse = await fetch(`${host}/api/movie/title?title=lean+on+me`);
 const testOMDBData = await testOMDBResponse.json();
 
-const testUserDataResponse = await getMoviesByUserId({ inputUserId: '01J9W2QWVYK5SA1DJ06Q21ZCFW' });
+const testUserDataResponse = await getUserMoviesById({ inputUserId: '01J9W2QWVYK5SA1DJ06Q21ZCFW' });
 console.log(testUserDataResponse);
 ---
 <html lang="en">

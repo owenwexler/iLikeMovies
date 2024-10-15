@@ -2,11 +2,11 @@ import { eq } from 'drizzle-orm';
 import { db } from '../db';
 import { userMovies } from '../schema';
 
-interface GetMoviesByUserIdArgs {
+interface GetUserMoviesByIdArgs {
   inputUserId: string;
 }
 
-const getMoviesByUserId = async (args: GetMoviesByUserIdArgs) => {
+const getUserMoviesById = async (args: GetUserMoviesByIdArgs) => {
   const { inputUserId } = args;
 
   try {
@@ -44,6 +44,6 @@ const setMovieWatched = async (args: SetMovieWatchedArgs) => {
 }
 
 export {
-  getMoviesByUserId,
+  getUserMoviesById,
   setMovieWatched
 }
