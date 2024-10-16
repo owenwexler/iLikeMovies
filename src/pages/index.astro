@@ -8,8 +8,9 @@ const host = import.meta.env.HOST_URL;
 const testOMDBResponse = await fetch(`${host}/api/movie/title?title=lean+on+me`);
 const testOMDBData = await testOMDBResponse.json();
 
-const testUserDataResponse = await getUserMoviesById({ inputUserId: '01J9W2QWVYK5SA1DJ06Q21ZCFW' });
-console.log(testUserDataResponse);
+const testUserDataResponse = await fetch(`${host}/api/user/movies/01J9W2QWVYK5SA1DJ06Q21ZCFW`);
+const testUserData = await testUserDataResponse.json();
+console.log(testUserData);
 ---
 <html lang="en">
 	<head>
