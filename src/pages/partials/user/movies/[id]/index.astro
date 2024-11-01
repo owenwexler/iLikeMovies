@@ -1,0 +1,25 @@
+---
+import MovieList from '../../../../../components/MovieList/MovieList.astro';
+
+export const partial = true;
+
+const { id } = Astro.params;
+
+let isError = false;
+
+const response = await fetch (`${import.meta.env.HOST_URL}/api/user/movies/${id}`);
+const data = await response.json();
+
+if (data.error) {
+  isError = true;
+}
+
+const movies = !data.error ? data as Movie[] : [] as Movie[];
+---
+{
+  isError
+  ?
+  <p>We're sorry, something went wrong.</p>
+  :
+  <MovieList movies={movies} />
+}

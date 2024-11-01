@@ -26,6 +26,7 @@ interface Movie {
   production: string;
   website: string;
   response: boolean;
+  userMovieId?: string;
 }
 
 export type {

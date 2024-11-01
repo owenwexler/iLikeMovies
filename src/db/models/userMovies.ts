@@ -14,7 +14,7 @@ const getUserMoviesById = async (args: GetUserMoviesByIdArgs): UserMovie[] => {
   }
 
   try {
-    const result = await sql`SELECT user_movie_id as "id", movie_title AS "title", imdb_id AS "imdbId", user_id AS "userId", watched FROM user_movies WHERE user_id = ${inputUserId} ORDER BY created_at DESC;`;
+    const result = await sql`SELECT user_movie_id as "id", movie_title AS "title", imdb_id AS "imdbId", user_id AS "userId", watched FROM user_movies WHERE user_id = ${inputUserId} ORDER BY created_at DESC`;
     return result ? result as UserMovie[] : [] as UserMovie[];
   } catch (error) {
     console.error(error);

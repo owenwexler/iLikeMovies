@@ -17,13 +17,13 @@ for (const key in typedOMDBOfflineData) {
   fullOMDBOfflineData[imdbID] = { ...movie };
 }
 
-const getOMDBOfflineMovieByTitle = (title: string, userMovieWatchedState?: boolean) => {
+const getOMDBOfflineMovieByTitle = (title: string, userMovieWatchedState?: boolean, userMovieId?: string) => {
   const result = typedOMDBOfflineData[title.toLowerCase() as keyof typeof typedOMDBOffline];
   const watchedState = userMovieWatchedState ? userMovieWatchedState : false;
   if (result) {
-    return formatOMDBMovie({ title, movieData: result as OMDBMovieResponse, userMovieWatchedState: watchedState });
+    return formatOMDBMovie({ title, movieData: result as OMDBMovieResponse, userMovieWatchedState: watchedState, userMovieId });
   } else {
-    return { ...movieNotFound, title, response: false, watched: userMovieWatchedState ? userMovieWatchedState : false };
+    return { ...movieNotFound, title, response: false, watched: userMovieWatchedState ? userMovieWatchedState : false, userMovieId };
   }
 };
 

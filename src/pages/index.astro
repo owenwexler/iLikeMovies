@@ -5,11 +5,7 @@ import { buttonClasses } from '../components/style/twClasses/buttonClasses';
 import { getUserMoviesById } from '../db/models/userMovies';
 
 const host = import.meta.env.HOST_URL;
-const testOMDBResponse = await fetch(`${host}/api/movie/title?title=lean+on+me`);
-const testOMDBData = await testOMDBResponse.json();
 
-const testUserDataResponse = await fetch(`${host}/api/user/movies/01J9W2QWVYK5SA1DJ06Q21ZCFW`);
-const testUserData = await testUserDataResponse.json();
 ---
 <html lang="en">
 	<head>
@@ -20,11 +16,13 @@ const testUserData = await testUserDataResponse.json();
 		<title>iLikeMovies</title>
 	</head>
     <body class="bg-gradient-to-r from-[#020e33] to-[#02185c]">
-    <div class="flex flex-col items-center justify-center text-center">
-      <MovieListItem movie={testOMDBData} />
-      <button class={buttonClasses}>
-        CLICK ME
-      </button>
-    </div>
+      <div 
+        id="movie-list-container"
+        hx-get="/partials/user/movies/01J9W2QWVYK5SA1DJ06Q21ZCFW"
+        hx-trigger="load"
+        class="flex flex-col items-center justify-center text-center"
+      >
+      
+      </div>
 	</body>
 </html>

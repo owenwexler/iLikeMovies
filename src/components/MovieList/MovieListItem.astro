@@ -18,7 +18,12 @@ const {
   runtime,
   genre,
   director,
+  watched
 } = movie;
+
+const buttonSwapIdFallback = movie.imdbId ? movie.imdbId : title.split(' ').join('-').toLowerCase(); // we should not have to use this but it is there just in case
+const userMovieId = movie.userMovieId ? movie.userMovieId : buttonSwapIdFallback;
+
 ---
 <PageCard>
   <div class="flex flex-row items-between justify-between">
@@ -29,8 +34,8 @@ const {
       <h2 class="text-lg lg:text-xl">{year}</h2>
       <h2 class="text-lg lg:text-xl">{rated}</h2>
       <h2 class="text-lg lg:text-xl">{genre}</h2>
-      <p class="mt-4"></p>
-      <button class={buttonClasses}>To Watch</button>
-    </div>
+      <div id={`watch-button-${userMovieId}`} class="mt-4">
+        <button class={buttonClasses}>To Watch</button>
+      </div>
   </div>
 </PageCard>

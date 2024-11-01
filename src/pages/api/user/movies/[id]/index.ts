@@ -18,17 +18,23 @@ export const GET: APIRoute = async ({ params, request }) => {
     const promises = [];
 
     for (const userMovie of userMovieResponse) {
+      const commonArgs = {
+        movieTitle: userMovie.title,
+        apiKey: omdbAPIKey,
+        devMode: devMode,
+        userMovieWatchedState: userMovie.watched,
+        userMovieId: userMovie.id
+      };
+
       if (userMovie.imdbId !== null) {
-        promises.push(getOMDBMovie({ movieTitle: userMovie.title, imdbId: userMovie.imdbId, apiKey: omdbAPIKey, devMode: devMode, method: 'imdbID' }));
+        promises.push(getOMDBMovie({ ...commonArgs, method: 'imdbID', imdbID: userMovie.imdbId }));
       } else {
-        promises.push(getOMDBMovie({ movieTitle: userMovie.title, apiKey: omdbAPIKey, devMode: devMode, method: 'title' }));
+        promises.push(getOMDBMovie({ ...commonArgs, method: 'title' }));
       }
     }
 
     const data = await Promise.all(promises);
 
-
-    console.log(data);
     return new Response(JSON.stringify(data));
   } catch (error) {
     console.error(error);

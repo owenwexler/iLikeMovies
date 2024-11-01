@@ -20,12 +20,13 @@ const getOMDBMovie = async (args: {
   devMode: 'online' | 'offline';
   method: 'title' | 'search' | 'imdbID';
   userMovieWatchedState: boolean;
+  userMovieId: string;
 }): Promise<OMDBMovieResponse | NetworkError> => {
-  const { movieTitle, apiKey, devMode, method, userMovieWatchedState } = args;
+  const { movieTitle, apiKey, devMode, method, userMovieWatchedState, userMovieId } = args;
 
   if (devMode === 'offline') {
     console.log('OFFLINE: offline mode hit');
-    return getOMDBOfflineMovieByTitle(movieTitle, userMovieWatchedState);
+    return getOMDBOfflineMovieByTitle(movieTitle, userMovieWatchedState, userMovieId);
   }
 
   let methodInitial;
@@ -55,7 +56,7 @@ const getOMDBMovie = async (args: {
     );
     const result = await response.json();
     const finalTitle = movieTitle ? movieTitle : result.Title;
-    return formatOMDBMovie({ title: finalTitle, movieData: result });
+    return formatOMDBMovie({ title: finalTitle, movieData: result, userMovieWatchedState, userMovieId });
   } catch (error) {
     const err: string = error ? error.toString() : '';
     return { error: err };
@@ -66,14 +67,14 @@ interface FormatOMDBMovieArgs {
   title: string;
   movieData: OMDBMovieResponse | OMDBError;
   userMovieWatchedState?: boolean;
+  userMovieId: string;
 }
 const formatOMDBMovie = (args: FormatOMDBMovieArgs): Movie => {
-  const { title, movieData, userMovieWatchedState } = args;
+  const { title, movieData, userMovieWatchedState, userMovieId } = args;
 
   const typedMovieResponse = movieData.Response === 'True' ? (movieData as OMDBMovieResponse) : blankOMDBResponse;
 
   if (movieData.Response === 'False') {
-    console.log('movieData Response false condition hit')
     const result = { ...blankOMDBResponse };
     result[title] = title;
     result[response] = false;
@@ -108,7 +109,7 @@ const formatOMDBMovie = (args: FormatOMDBMovieArgs): Movie => {
       Response,
     } = typedMovieResponse;
 
-    return {
+    const formattedMovieResponse = {
       title: Title,
       year: Year,
       rated: Rated,
@@ -134,8 +135,16 @@ const formatOMDBMovie = (args: FormatOMDBMovieArgs): Movie => {
       production: Production,
       website: Website,
       response: Response === 'True' ? true : false,
-      watched: userMovieWatchedState ? userMovieWatchedState : false
     };
+
+    // TODO: cache formatted response without the two user-specific fields in REDIS, whenever we add REDIS
+    // REDIS will be used to cache formatted OMDB responses and reduce extraneous calls to OMDB eventually
+
+    return {
+      ...formattedMovieResponse,
+      watched: userMovieWatchedState ? userMovieWatchedState : false,
+      userMovieId: userMovieId
+    }
   }
 };
 
