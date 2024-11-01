@@ -18,13 +18,14 @@ const getOMDBMovie = async (args: {
   imdbID?: string;
   apiKey: string;
   devMode: 'online' | 'offline';
-  method: 'title' | 'search' | 'imdbID'
+  method: 'title' | 'search' | 'imdbID';
+  userMovieWatchedState: boolean;
 }): Promise<OMDBMovieResponse | NetworkError> => {
-  const { movieTitle, apiKey, devMode, method } = args;
+  const { movieTitle, apiKey, devMode, method, userMovieWatchedState } = args;
 
   if (devMode === 'offline') {
     console.log('OFFLINE: offline mode hit');
-    return getOMDBOfflineMovieByTitle(movieTitle);
+    return getOMDBOfflineMovieByTitle(movieTitle, userMovieWatchedState);
   }
 
   let methodInitial;
@@ -53,7 +54,8 @@ const getOMDBMovie = async (args: {
       `http://www.omdbapi.com/?apikey=${apiKey}&${methodInitial}=${searchQuery}&r=json&plot=short`,
     );
     const result = await response.json();
-    return formatOMDBMovie({ title: movieTitle, movieData: result });
+    const finalTitle = movieTitle ? movieTitle : result.Title;
+    return formatOMDBMovie({ title: finalTitle, movieData: result });
   } catch (error) {
     const err: string = error ? error.toString() : '';
     return { error: err };
@@ -63,17 +65,20 @@ const getOMDBMovie = async (args: {
 interface FormatOMDBMovieArgs {
   title: string;
   movieData: OMDBMovieResponse | OMDBError;
+  userMovieWatchedState?: boolean;
 }
 const formatOMDBMovie = (args: FormatOMDBMovieArgs): Movie => {
-  const { title, movieData } = args;
+  const { title, movieData, userMovieWatchedState } = args;
 
   const typedMovieResponse = movieData.Response === 'True' ? (movieData as OMDBMovieResponse) : blankOMDBResponse;
 
   if (movieData.Response === 'False') {
-    return {
-      ...movieNotFound,
-      title,
-    };
+    console.log('movieData Response false condition hit')
+    const result = { ...blankOMDBResponse };
+    result[title] = title;
+    result[response] = false;
+    result[watched] = userMovieWatchedState ? userMovieWatchedState : false;
+    return result;
   } else {
     const {
       Title,
@@ -129,6 +134,7 @@ const formatOMDBMovie = (args: FormatOMDBMovieArgs): Movie => {
       production: Production,
       website: Website,
       response: Response === 'True' ? true : false,
+      watched: userMovieWatchedState ? userMovieWatchedState : false
     };
   }
 };

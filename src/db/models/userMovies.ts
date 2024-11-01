@@ -1,17 +1,21 @@
-import { eq } from 'drizzle-orm';
-import { db } from '../db';
-import { userMovies } from '../schema';
+import { isValidULID } from '../../helper/isValidULID';
+import type { UserMovie } from '../../typedefs/UserMovie';
+import sql from '../db';
 
 interface GetUserMoviesByIdArgs {
   inputUserId: string;
 }
 
-const getUserMoviesById = async (args: GetUserMoviesByIdArgs) => {
+const getUserMoviesById = async (args: GetUserMoviesByIdArgs): UserMovie[] => {
   const { inputUserId } = args;
 
+  if (!isValidULID(inputUserId)) {
+    throw new Error('Invalid ULID format at getUserMoviesById');
+  }
+
   try {
-    const result = await db.select().from(userMovies).where(eq(userMovies.userId, inputUserId));
-    return result;
+    const result = await sql`SELECT user_movie_id as "id", movie_title AS "title", imdb_id AS "imdbId", user_id AS "userId", watched FROM user_movies WHERE user_id = ${inputUserId} ORDER BY created_at DESC;`;
+    return result ? result as UserMovie[] : [] as UserMovie[];
   } catch (error) {
     console.error(error);
     throw error;
@@ -29,13 +33,14 @@ const setMovieWatched = async (args: SetMovieWatchedArgs) => {
     currentMovieWatchedState 
   } = args;
 
+  if (!isValidULID(userMovieId)) {
+    throw new Error('Invalid ULID format at setMovieWatched');
+  }
+
   const newMovieWatchedState = !currentMovieWatchedState;
 
   try {
-    const result = await db.update(userMovies)
-    .set({ watched: newMovieWatchedState })
-    .where(eq(userMovies.id, userMovieId));
-
+    const result = await sql`UPDATE user_movies SET watched = ${newMovieWatchedState} WHERE user_movie_id = ${userMovieId};`;
     return result;
   } catch (error) {
     console.error(error);

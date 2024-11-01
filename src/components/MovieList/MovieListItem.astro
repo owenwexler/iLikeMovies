@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { movieNotFound } from "../../data/movieNotFound";
 import type { Movie } from "../../typedefs/Movie";
 import PageCard from "../style/PageCard.astro";
@@ -8,7 +9,7 @@ const { movie } = Astro.props;
 
 const typedMovie = movie ? movie as Movie : movieNotFound;
 
-const imageUrl = movie.imageUrl && movie.imageUrl !== 'No info available' ? movie.imageUrl : '/public/images/movieNotFound.jpg';
+const imageUrl = movie.poster && movie.poster !== 'No info available' ? movie.poster : '/images/movieNotFound.jpg';
 
 const {
   title,
@@ -21,13 +22,13 @@ const {
 ---
 <PageCard>
   <div class="flex flex-row items-between justify-between">
-    <img src={imageUrl} width="100px" height="75px" />
+    <Image src={imageUrl} alt={movie.title} width={100} height={75} />
 
     <div class="flex flex-col items-end justify-end">
-      <h1 class="text-xl font-bold">{title}</h1>
-      <h2 class="text-lg">{year}</h2>
-      <h2 class="text-lg">{rated}</h2>
-      <h2 class="text-lg">{genre}</h2>
+      <h1 class="text-xl lg:text-2xl font-bold">{title}</h1>
+      <h2 class="text-lg lg:text-xl">{year}</h2>
+      <h2 class="text-lg lg:text-xl">{rated}</h2>
+      <h2 class="text-lg lg:text-xl">{genre}</h2>
       <p class="mt-4"></p>
       <button class={buttonClasses}>To Watch</button>
     </div>
