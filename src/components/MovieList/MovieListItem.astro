@@ -24,6 +24,10 @@ const {
 const buttonSwapIdFallback = movie.imdbId ? movie.imdbId : title.split(' ').join('-').toLowerCase(); // we should not have to use this but it is there just in case
 const userMovieId = movie.userMovieId ? movie.userMovieId : buttonSwapIdFallback;
 
+const userId = '01J9W2QWVYK5SA1DJ06Q21ZCFW';
+
+const watchedStateParam = watched ? 'watched' : 'unwatched';
+
 ---
 <PageCard>
   <div class="flex flex-row items-between justify-between">
@@ -34,8 +38,20 @@ const userMovieId = movie.userMovieId ? movie.userMovieId : buttonSwapIdFallback
       <h2 class="text-lg lg:text-xl">{year}</h2>
       <h2 class="text-lg lg:text-xl">{rated}</h2>
       <h2 class="text-lg lg:text-xl">{genre}</h2>
-      <div id={`watch-button-${userMovieId}`} class="mt-4">
-        <button class={buttonClasses}>To Watch</button>
+      <div 
+        id={`watched-div-${userMovieId}`}
+        class="mt-4"
+      >
+        <button
+          id={`watched-button-${userMovieId}`}
+          class={buttonClasses}
+          hx-post={`/partials/user/toggle/${userId}/${userMovieId}/?watched=${watchedStateParam}`}
+          hx-trigger="click"
+          hx-target={`#watched-div-${userMovieId}`}
+          hx-swap="innerHTML"
+        >
+          {watched ? 'Watched' : 'To Watch'}
+        </button>
       </div>
   </div>
 </PageCard>
