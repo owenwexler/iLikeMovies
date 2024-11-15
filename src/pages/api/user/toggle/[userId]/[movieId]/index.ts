@@ -1,3 +1,4 @@
+import { getOMDBMovie } from "../../../../../../../omdb/omdb";
 import { setMovieWatched, getSingleUserMovieById } from "../../../../../../db/models/userMovies";
 import type { Movie } from "../../../../../../typedefs/Movie";
 
@@ -21,17 +22,17 @@ export const GET: APIRoute = async ({ params, request }) => {
 
     // TODO: the cache MUST be used/leveraged here - an OMDB call for every toggle would be a disaster!
     const commonArgs = {
-      movieTitle: userMovie.title,
+      movieTitle: newMovie.title,
       apiKey: omdbAPIKey,
       devMode: devMode,
-      userMovieWatchedState: userMovie.watched,
-      userMovieId: userMovie.id
+      userMovieWatchedState: newMovie.watched,
+      userMovieId: newMovie.id
     };
 
     let formattedMovie: Movie;
 
-    if (userMovie.imdbId !== null) {
-      formattedMovie = await getOMDBMovie({ ...commonArgs, method: 'imdbID', imdbID: userMovie.imdbId });
+    if (newMovie.imdbId !== null) {
+      formattedMovie = await getOMDBMovie({ ...commonArgs, method: 'imdbID', imdbID: newMovie.imdbId });
     } else {
       formattedMovie = await getOMDBMovie({ ...commonArgs, method: 'title' });
     }

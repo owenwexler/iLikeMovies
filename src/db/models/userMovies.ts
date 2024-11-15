@@ -41,7 +41,7 @@ const getSingleUserMovieById = async (args: GetSingleUserMovieByIdArgs) => {
   try {
     const response = await sql`SELECT user_movie_id as "id", movie_title AS "title", imdb_id AS "imdbId", user_id AS "userId", watched FROM user_movies WHERE user_movie_id = ${userMovieId};`;
 
-    const result = response ? response as UserMovie : blankUserMovie;
+    const result = response && response[0] ? response[0] as UserMovie : blankUserMovie;
 
     if (userId !== result.userId) {
       throw new Error('Unauthorized');

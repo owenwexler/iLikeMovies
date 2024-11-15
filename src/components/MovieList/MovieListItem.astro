@@ -9,7 +9,6 @@ const { movie, usingFilters } = Astro.props;
 
 const typedMovie = movie ? movie as Movie : movieNotFound;
 
-const imageUrl = movie.poster && movie.poster !== 'No info available' ? movie.poster : '/images/movieNotFound.jpg';
 
 const {
   title,
