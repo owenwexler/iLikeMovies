@@ -3,17 +3,23 @@ import { getUserMoviesById } from '../../../../../db/models/userMovies';
 import type { UserMovie } from '../../../../../db/schema';
 import { getOMDBMovie } from '../../../../../../omdb/omdb';
 import { formatArrayAsCacheObject } from '../../../../../helper/formatArrayAsCacheObject';
+import type { FilterUnionType } from '../../../../../typedefs/FilterUnionType';
 
 export const GET: APIRoute = async ({ params, request }) => {
   const { id } = params;
   
+  const searchParams = request.url.slice(request.url.indexOf('?'));
+
+  const filterParam = searchParams.slice(searchParams.indexOf('=') + 1);
+  const filter: FilterUnionType = filterParam && filterParam !== '' && ['watched', 'unwatched', 'all'].includes(filterParam) ? filterParam : 'all';
+
   const env = import.meta.env;
   const omdbAPIKey = env.OMDB_API_KEY;
   const nodeEnv = env.NODE_ENV ? env.NODE_ENV : 'development';
   const devMode = nodeEnv === "development" && env.DEV_MODE === 'offline' ? 'offline' : 'online';
 
   try {
-    const userMovieResponse: UserMovie[] = await getUserMoviesById({ inputUserId: id });
+    const userMovieResponse: UserMovie[] = await getUserMoviesById({ inputUserId: id, filter });
 
     const promises = [];
 

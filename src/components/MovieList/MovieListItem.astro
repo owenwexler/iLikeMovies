@@ -4,6 +4,7 @@ import type { Movie } from "../../typedefs/Movie";
 import PageCard from "../style/PageCard.astro";
 import MovieListItemInner from "./MovieListItemInner.astro";
 import { buttonClasses } from "../style/twClasses/buttonClasses";
+import { Image } from "astro:assets";
 
 const { movie, usingFilters } = Astro.props;
 
@@ -20,6 +21,8 @@ const {
   watched
 } = movie;
 
+const imageUrl = movie.poster && movie.poster !== 'No info available' ? movie.poster : '/images/movieNotFound.jpg';
+
 const buttonSwapIdFallback = movie.imdbId ? movie.imdbId : title.split(' ').join('-').toLowerCase(); // we should not have to use this but it is there just in case
 const userMovieId = movie.userMovieId ? movie.userMovieId : buttonSwapIdFallback;
 
@@ -29,7 +32,13 @@ const watchedStateParam = watched ? 'watched' : 'unwatched';
 
 ---
 <PageCard>
-  <div id={`movie-list-item-inner-container-${userMovieId}`} class="flex flex-row items-between justify-between">
+  <div class="flex flex-row items-between justify-between">
+    <Image 
+      src={imageUrl} 
+      alt={title} 
+      width={100} 
+      height={75} 
+    />
     <MovieListItemInner movie={movie} userId={userId} userMovieId={userMovieId} watchedStateParam={watchedStateParam} usingFilters={usingFilters} /> 
   </div>
 </PageCard>

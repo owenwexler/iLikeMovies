@@ -1,21 +1,32 @@
 import { blankUserMovie } from '../../data/blankUserMovie';
 import { isValidULID } from '../../helper/isValidULID';
+import type { FilterUnionType } from '../../typedefs/FilterUnionType';
 import type { UserMovie } from '../../typedefs/UserMovie';
 import sql from '../db';
 
 interface GetUserMoviesByIdArgs {
   inputUserId: string;
+  filter?: FilterUnionType;
 }
 
 const getUserMoviesById = async (args: GetUserMoviesByIdArgs): UserMovie[] => {
-  const { inputUserId } = args;
+  const { inputUserId, filter } = args;
 
   if (!isValidULID(inputUserId)) {
     throw new Error('Invalid ULID format at getUserMoviesById');
   }
 
+  let result: unknown;
+
   try {
-    const result = await sql`SELECT user_movie_id as "id", movie_title AS "title", imdb_id AS "imdbId", user_id AS "userId", watched FROM user_movies WHERE user_id = ${inputUserId} ORDER BY created_at DESC;`;
+    // this is why I hate tagged template literals in a SQL client.  I so wish I could just reuse the base query here instead of copy-pasting it.  Once we get Supabase in this project we can do this more cleanly with the Supabase client
+    if (filter === 'watched') {
+      result = await sql`SELECT user_movie_id as "id", movie_title AS "title", imdb_id AS "imdbId", user_id AS "userId", watched FROM user_movies WHERE user_id = ${inputUserId} AND watched = TRUE ORDER BY created_at DESC;`;
+    } else if (filter === 'unwatched') {
+      result = await sql`SELECT user_movie_id as "id", movie_title AS "title", imdb_id AS "imdbId", user_id AS "userId", watched FROM user_movies WHERE user_id = ${inputUserId} AND WATCHED = FALSE ORDER BY created_at DESC;`;
+    } else {
+      result = await sql`SELECT user_movie_id as "id", movie_title AS "title", imdb_id AS "imdbId", user_id AS "userId", watched FROM user_movies WHERE user_id = ${inputUserId} ORDER BY created_at DESC;`;
+    }
     return result ? result as UserMovie[] : [] as UserMovie[];
   } catch (error) {
     console.error(error);

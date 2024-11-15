@@ -1,0 +1,47 @@
+---
+import { buttonClasses } from "../style/twClasses/buttonClasses";
+
+const { userId } = Astro.props;
+
+// TODO: use Alpine to add conditional styles to these buttons
+---
+<div class="flex flex-row items-center justify-center p-4 mt-2 space-x-3">
+  <button
+    class={buttonClasses}
+    hx-get={`/partials/user/movies/${userId}`}
+    hx-target="#movie-list-container"
+    hx-trigger="click"
+    hx-replace="innerHTML"
+    hx-boost="true"
+  >
+    <p class="text-white text-lg font-bold">
+      All Movies
+    </p>
+  </button>
+
+  <button
+    class={buttonClasses}
+    hx-get={`/partials/user/movies/${userId}?filter=watched`}
+    hx-target="#movie-list-container"
+    hx-trigger="click"
+    hx-replace="innerHTML"
+    hx-boost="true"
+  >
+    <p class="text-white text-lg font-bold">
+      Watched
+    </p>
+  </button>
+
+  <button
+    class={buttonClasses}
+    hx-get={`/partials/user/movies/${userId}?filter=unwatched`}
+    hx-target="#movie-list-container"
+    hx-trigger="click"
+    hx-replace="innerHTML"
+    hx-boost="true"
+  >
+    <p class="text-white text-lg font-bold">
+      To Watch
+    </p>
+  </button>
+</div>

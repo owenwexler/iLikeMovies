@@ -2,23 +2,15 @@
 import { Image } from "astro:assets";
 import { buttonClasses } from "../style/twClasses/buttonClasses";
 
-// this is the only way to have a div that is replacable by HTMX without screwing up the layout, this keeps the swapped out content within the PageCard component
+// this is the only way to have a div that is replacable by HTMX without screwing up the layout, this keeps the swapped out content within the PageCard component.  Including the image in this component caused it to flicker on every toggle of the watched button which is unacceptable so the image will not be included in this component.
 const { movie, userId, userMovieId, watchedStateParam, usingFilters } = Astro.props;
-console.log('movie from MovieListItemInner: ', movie)
 
 const { title, year, rated, genre } = movie;
 
-const imageUrl = movie.poster && movie.poster !== 'No info available' ? movie.poster : '/images/movieNotFound.jpg';
 
 ---
-<Image 
-  src={imageUrl} 
-  alt={title} 
-  width={100} 
-  height={75} 
-/>
 
-<div class="flex flex-col items-end justify-end">
+<div id={`movie-list-item-inner-container-${userMovieId}`} class="flex flex-col items-end justify-end">
   <h1 class="text-xl lg:text-2xl font-bold">{title}</h1>
   <h2 class="text-lg lg:text-xl">{year}</h2>
   <h2 class="text-lg lg:text-xl">{rated}</h2>

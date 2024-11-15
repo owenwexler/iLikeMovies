@@ -1,13 +1,18 @@
 ---
 import MovieList from '../../../../../components/MovieList/MovieList.astro';
 
+import type { FilterUnionType } from '../../../../../typedefs/FilterUnionType';
+
 export const partial = true;
 
 const { id } = Astro.params;
 
+const filterParam = Astro.url.searchParams.get('filter');
+const filter: FilterUnionType = filterParam && filterParam !== '' && ['watched', 'unwatched', 'all'].includes(filterParam) ? filterParam : 'all';
+
 let isError = false;
 
-const response = await fetch (`${import.meta.env.HOST_URL}/api/user/movies/${id}`);
+const response = await fetch (`${import.meta.env.HOST_URL}/api/user/movies/${id}?filter=${filter}`);
 const data = await response.json();
 
 if (data.error) {

@@ -1,5 +1,6 @@
 ---
 import MovieListItem from '../components/MovieList/MovieListItem.astro';
+import FilterForm from '../components/FilterForm/FilterForm.astro';
 import { buttonClasses } from '../components/style/twClasses/buttonClasses';
 
 import { getUserMoviesById } from '../db/models/userMovies';
@@ -15,7 +16,8 @@ const host = import.meta.env.HOST_URL;
 		<meta name="generator" content={Astro.generator} />
 		<title>iLikeMovies</title>
 	</head>
-    <body class="bg-gradient-to-r from-[#020e33] to-[#02185c]">
+  <body class="bg-gradient-to-r from-[#020e33] to-[#02185c]">
+      <FilterForm userId="01J9W2QWVYK5SA1DJ06Q21ZCFW" />
       <div 
         id="movie-list-container"
         hx-get="/partials/user/movies/01J9W2QWVYK5SA1DJ06Q21ZCFW"
