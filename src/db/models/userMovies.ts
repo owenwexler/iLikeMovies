@@ -1,3 +1,4 @@
+import { blankUserMovie } from '../../data/blankUserMovie';
 import { isValidULID } from '../../helper/isValidULID';
 import type { UserMovie } from '../../typedefs/UserMovie';
 import sql from '../db';
@@ -14,8 +15,39 @@ const getUserMoviesById = async (args: GetUserMoviesByIdArgs): UserMovie[] => {
   }
 
   try {
-    const result = await sql`SELECT user_movie_id as "id", movie_title AS "title", imdb_id AS "imdbId", user_id AS "userId", watched FROM user_movies WHERE user_id = ${inputUserId} ORDER BY created_at DESC`;
+    const result = await sql`SELECT user_movie_id as "id", movie_title AS "title", imdb_id AS "imdbId", user_id AS "userId", watched FROM user_movies WHERE user_id = ${inputUserId} ORDER BY created_at DESC;`;
     return result ? result as UserMovie[] : [] as UserMovie[];
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+interface GetSingleUserMovieByIdArgs {
+  userId: string;
+  userMovieId: string;
+}
+
+const getSingleUserMovieById = async (args: GetSingleUserMovieByIdArgs) => {
+  const {
+    userId,
+    userMovieId
+  } = args;
+
+  if (!userId) {
+    throw new Error('Unauthorized');
+  }
+
+  try {
+    const response = await sql`SELECT user_movie_id as "id", movie_title AS "title", imdb_id AS "imdbId", user_id AS "userId", watched FROM user_movies WHERE user_movie_id = ${userMovieId};`;
+
+    const result = response ? response as UserMovie : blankUserMovie;
+
+    if (userId !== result.userId) {
+      throw new Error('Unauthorized');
+    } else {
+      return result;
+    }
   } catch (error) {
     console.error(error);
     throw error;
@@ -50,5 +82,6 @@ const setMovieWatched = async (args: SetMovieWatchedArgs) => {
 
 export {
   getUserMoviesById,
+  getSingleUserMovieById,
   setMovieWatched
 }

@@ -1,7 +1,10 @@
 ---
+import MovieListItemInner from "../../../../../../components/MovieList/MovieListItemInner.astro";
 import { buttonClasses } from "../../../../../../components/style/twClasses/buttonClasses";
 
 export const partial = true;
+
+console.log('toggle partial hit')
 
 const params = Astro.url.pathname.split('/');
 const userId = params[4];
@@ -11,28 +14,16 @@ const watchedStateParam = Astro.url.searchParams.get('watched');
 let isError = false;
 
 const response = await fetch (`${import.meta.env.HOST_URL}/api/user/toggle/${userId}/${movieId}/?watched=${watchedStateParam}`);
-const data = await response.json();
+const movie = await response.json();
 
-if (data.error) {
+if (movie.error) {
+  console.error(movie.error);
   isError = true;
 }
 
-const newWatchedState = !data.error && data.newWatchedState ? data.newWatchedState : false;
+const newWatchedState = !movie.error && movie.newWatchedState ? movie.newWatchedState : false;
+
+const finalWatchedStateParam =  movie.watched ? 'watched' : 'unwatched';
 
 ---
-<button
-  id={`watched-button-${movieId}`}
-  class={buttonClasses}
-  hx-post={`/partials/user/toggle/${userId}/${movieId}/?watched=${newWatchedState}`}
-  hx-trigger="click"
-  hx-target={`#watched-div-${movieId}`}
-  hx-swap="innerHTML"
->
-  {
-    isError
-      ?
-        'ERROR'
-      :
-        newWatchedState === true ? 'Watched' : 'To Watch'
-  }
-</button>
+<MovieListItemInner movie={movie} userId={userId} userMovieId={movieId} watchedStateParam={finalWatchedStateParam} usingFilters={false} /> 
