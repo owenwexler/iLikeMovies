@@ -6,10 +6,9 @@ import MovieListItemInner from "./MovieListItemInner.astro";
 import { buttonClasses } from "../style/twClasses/buttonClasses";
 import { Image } from "astro:assets";
 
-const { movie, usingFilters } = Astro.props;
+const { movie, filter } = Astro.props;
 
 const typedMovie = movie ? movie as Movie : movieNotFound;
-
 
 const {
   title,
@@ -39,6 +38,12 @@ const watchedStateParam = watched ? 'watched' : 'unwatched';
       width={100} 
       height={75} 
     />
-    <MovieListItemInner movie={movie} userId={userId} userMovieId={userMovieId} watchedStateParam={watchedStateParam} usingFilters={usingFilters} /> 
+    <MovieListItemInner 
+      movie={movie} 
+      userId={userId} 
+      userMovieId={userMovieId} 
+      watchedStateParam={watchedStateParam}
+      filter={filter}
+    /> 
   </div>
 </PageCard>

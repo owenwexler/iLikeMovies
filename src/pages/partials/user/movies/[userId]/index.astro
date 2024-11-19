@@ -1,18 +1,20 @@
 ---
 import MovieList from '../../../../../components/MovieList/MovieList.astro';
+import { getTypedFilter } from '../../../../../helper/getTypedFilter';
 
 import type { FilterUnionType } from '../../../../../typedefs/FilterUnionType';
 
 export const partial = true;
 
-const { id } = Astro.params;
+const { userId } = Astro.params;
 
 const filterParam = Astro.url.searchParams.get('filter');
-const filter: FilterUnionType = filterParam && filterParam !== '' && ['watched', 'unwatched', 'all'].includes(filterParam) ? filterParam : 'all';
+const filter: FilterUnionType = getTypedFilter(filterParam);
+console.log('filter in partials route: ', filter)
 
 let isError = false;
 
-const response = await fetch (`${import.meta.env.HOST_URL}/api/user/movies/${id}?filter=${filter}`);
+const response = await fetch (`${import.meta.env.HOST_URL}/api/user/movies/${userId}?filter=${filter}`);
 const data = await response.json();
 
 if (data.error) {
@@ -24,7 +26,7 @@ const movies = !data.error ? data as Movie[] : [] as Movie[];
 {
   isError
   ?
-  <p>We're sorry, something went wrong.</p>
+    <p>We're sorry, something went wrong.</p>
   :
-  <MovieList movies={movies} />
+    <MovieList movies={movies} filter={filter}/>
 }

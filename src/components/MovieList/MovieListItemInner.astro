@@ -1,15 +1,20 @@
 ---
 import { Image } from "astro:assets";
 import { buttonClasses } from "../style/twClasses/buttonClasses";
+import type { FilterUnionType } from "../../typedefs/FilterUnionType";
+
+import { getTypedFilter } from "../../helper/getTypedFilter";
 
 // this is the only way to have a div that is replacable by HTMX without screwing up the layout, this keeps the swapped out content within the PageCard component.  Including the image in this component caused it to flicker on every toggle of the watched button which is unacceptable so the image will not be included in this component.
-const { movie, userId, userMovieId, watchedStateParam, usingFilters } = Astro.props;
+const { movie, userId, userMovieId, watchedStateParam, filter } = Astro.props;
 
-const { title, year, rated, genre } = movie;
+const { title, year, rated, genre, watched } = movie;
 
+const buttonText = watched ? 'Watched' : 'To Watch';
 
+const typedFilter: FilterUnionType = getTypedFilter(filter);
+console.log(`filter in MovieListItemInner: ${typedFilter}`)
 ---
-
 <div id={`movie-list-item-inner-container-${userMovieId}`} class="flex flex-col items-end justify-end">
   <h1 class="text-xl lg:text-2xl font-bold">{title}</h1>
   <h2 class="text-lg lg:text-xl">{year}</h2>
@@ -18,17 +23,33 @@ const { title, year, rated, genre } = movie;
   <div 
     id={`watched-div-${userMovieId}`}
     class="mt-4"
-  >
-    <button
-      id={`watched-button-${userMovieId}`}
-      class={buttonClasses}
-      hx-post={`/partials/user/toggle/${userId}/${userMovieId}/?watched=${watchedStateParam}`}
-      hx-trigger="click"
-      hx-target={`#movie-list-item-inner-container-${userMovieId}`}
-      hx-swap="innerHTML"
-      hx-boost="true"
-    >
-      {movie.watched ? 'Watched' : 'To Watch'}
-    </button>
+>
+  {
+    typedFilter === 'all'
+      ?
+        <button
+          id={`watched-button-${userMovieId}`}
+          class={buttonClasses}
+          hx-post={`/partials/user/toggle/${userId}/${userMovieId}/?watched=${watchedStateParam}`}
+          hx-trigger="click"
+          hx-target={`#movie-list-item-inner-container-${userMovieId}`}
+          hx-swap="innerHTML"
+          hx-boost="true"
+        >
+          {buttonText}
+        </button>
+      :
+        <button
+          id={`watched-button-${userMovieId}`}
+          class={buttonClasses}
+          hx-post={`/partials/user/toggle-filtered/${userId}/${userMovieId}/?watched=${watchedStateParam}?filter=${filter}`}
+          hx-trigger="click"
+          hx-target="#movie-list-container"
+          hx-swap="innerHTML"
+          hx-boost="true"
+        >
+          {buttonText}
+        </button>
+    }
   </div>
 <div>

@@ -2,10 +2,10 @@
 import type { Movie } from "../../typedefs/Movie";
 import MovieListItem from './MovieListItem.astro';
 
-const { movies, usingFilters } = Astro.props;
+const { movies, filter } = Astro.props;
 
 const typedMovies = movies ? movies as Movie[] : [] as Movie[];
 ---
 {
-  movies.map(movie => <MovieListItem movie={movie} usingFilters={usingFilters} /> )
+  movies.map(movie => <MovieListItem movie={movie} filter={filter} /> )
 }
