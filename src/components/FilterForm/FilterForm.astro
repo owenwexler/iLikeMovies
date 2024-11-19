@@ -1,47 +1,78 @@
 ---
-import { buttonClasses } from "../style/twClasses/buttonClasses";
-
 const { userId } = Astro.props;
-
-// TODO: use Alpine to add conditional styles to these buttons
 ---
-<div class="flex flex-row items-center justify-center p-4 mt-2 space-x-3">
-  <button
-    class={buttonClasses}
-    hx-get={`/partials/user/movies/${userId}`}
-    hx-target="#movie-list-container"
-    hx-trigger="click"
-    hx-replace="innerHTML"
-    hx-boost="true"
-  >
-    <p class="text-white text-lg font-bold">
-      All Movies
-    </p>
-  </button>
+<fieldset>
+  <div class="flex flex-row items-center justify-center p-4 mt-2 space-x-3">
+    <div class="flex flex-row items-center justify-center p-4 mt-2 space-x-2">
+      <input 
+        type="radio"
+        id="movie-filter-all" 
+        name="all" 
+        value="all" 
+        checked
+        hx-get={`/partials/user/movies/${userId}`}
+        hx-target="#movie-list-container"
+        hx-trigger="click"
+        hx-replace="innerHTML"
+        hx-boost="true"
+      />
+      <label for="all" class="text-xl text-white font-bold">All Movies</label>
+    </div>
 
-  <button
-    class={buttonClasses}
-    hx-get={`/partials/user/movies/${userId}?filter=watched`}
-    hx-target="#movie-list-container"
-    hx-trigger="click"
-    hx-replace="innerHTML"
-    hx-boost="true"
-  >
-    <p class="text-white text-lg font-bold">
-      Watched
-    </p>
-  </button>
+    <div class="flex flex-row items-center justify-center p-4 mt-2 space-x-2">
+      <input 
+        type="radio"
+        id="movie-filter-watched" 
+        name="watched" 
+        value="watched" 
+        hx-get={`/partials/user/movies/${userId}?filter=watched`}
+        hx-target="#movie-list-container"
+        hx-trigger="click"
+        hx-replace="innerHTML"
+        hx-boost="true"
+      />
+      <label for="watched" class="text-xl text-white font-bold">Watched</label>
+    </div>
 
-  <button
-    class={buttonClasses}
-    hx-get={`/partials/user/movies/${userId}?filter=unwatched`}
-    hx-target="#movie-list-container"
-    hx-trigger="click"
-    hx-replace="innerHTML"
-    hx-boost="true"
-  >
-    <p class="text-white text-lg font-bold">
-      To Watch
-    </p>
-  </button>
-</div>
+    <div class="flex flex-row items-center justify-center p-4 mt-2 space-x-2">
+      <input 
+        type="radio"
+        id="movie-filter-unwatched" 
+        name="unwatched" 
+        value="unwatched" 
+        hx-get={`/partials/user/movies/${userId}?filter=unwatched`}
+        hx-target="#movie-list-container"
+        hx-trigger="click"
+        hx-replace="innerHTML"
+        hx-boost="true"
+      />
+      <label for="all" class="text-xl text-white font-bold">To Watch</label>
+    </div>
+  </div>
+</fieldset>
+
+<script>
+  // this script controls the checked property of each button using vanilla JavaScript
+
+  const allRadio = document.getElementById('movie-filter-all');
+  const watchedRadio = document.getElementById('movie-filter-watched');
+  const unwatchedRadio = document.getElementById('movie-filter-unwatched');
+
+  allRadio.addEventListener('click', () => {
+    allRadio.checked = true;
+    watchedRadio.checked = false;
+    unwatchedRadio.checked = false;
+  });
+  
+  watchedRadio.addEventListener('click', () => {
+    allRadio.checked = false;
+    watchedRadio.checked = true;
+    unwatchedRadio.checked = false;
+  });
+  
+  unwatchedRadio.addEventListener('click', () => {
+    allRadio.checked = false;
+    watchedRadio.checked = false;
+    unwatchedRadio.checked = true;
+  });
+</script>
