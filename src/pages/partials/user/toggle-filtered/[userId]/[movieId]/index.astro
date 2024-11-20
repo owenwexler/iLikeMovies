@@ -12,8 +12,6 @@ const movieId = params[5];
 const watchedStateParam = Astro.url.searchParams.get('watched');
 const filter = getTypedFilter(Astro.url.searchParams.get('filter'));
 
-console.log(`filter in toggle-filtered partial: ${filter}`)
-
 let isError = false;
 
 const toggleResponse = await fetch (`${import.meta.env.HOST_URL}/api/user/toggle/${userId}/${movieId}/?watched=${watchedStateParam}`);

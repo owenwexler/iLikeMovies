@@ -10,7 +10,6 @@ const { userId } = Astro.params;
 
 const filterParam = Astro.url.searchParams.get('filter');
 const filter: FilterUnionType = getTypedFilter(filterParam);
-console.log('filter in partials route: ', filter)
 
 let isError = false;
 

@@ -13,10 +13,13 @@ const { title, year, rated, genre, watched } = movie;
 const buttonText = watched ? 'Watched' : 'To Watch';
 
 const typedFilter: FilterUnionType = getTypedFilter(filter);
-console.log(`filter in MovieListItemInner: ${typedFilter}`)
+
+const route = typedFilter === 'all' ? `/partials/user/toggle/${userId}/${userMovieId}?watched=${watchedStateParam}` : `/partials/user/toggle-filtered/${userId}/${userMovieId}?watched=${watchedStateParam}&filter=${typedFilter}`;
+
+const target = typedFilter === 'all' ? `#movie-list-item-inner-container-${userMovieId}` : '#movie-list-container';
 ---
 <div id={`movie-list-item-inner-container-${userMovieId}`} class="flex flex-col items-end justify-end">
-  <h1 class="text-xl lg:text-2xl font-bold">{title}</h1>
+  <h1 class="text-xl lg:text-2xl font-bold">{title.length > 30 ? `${title.slice(0, 25)}...` : title}</h1>
   <h2 class="text-lg lg:text-xl">{year}</h2>
   <h2 class="text-lg lg:text-xl">{rated}</h2>
   <h2 class="text-lg lg:text-xl">{genre}</h2>
@@ -24,32 +27,15 @@ console.log(`filter in MovieListItemInner: ${typedFilter}`)
     id={`watched-div-${userMovieId}`}
     class="mt-4"
 >
-  {
-    typedFilter === 'all'
-      ?
-        <button
-          id={`watched-button-${userMovieId}`}
-          class={buttonClasses}
-          hx-post={`/partials/user/toggle/${userId}/${userMovieId}/?watched=${watchedStateParam}`}
-          hx-trigger="click"
-          hx-target={`#movie-list-item-inner-container-${userMovieId}`}
-          hx-swap="innerHTML"
-          hx-boost="true"
-        >
-          {buttonText}
-        </button>
-      :
-        <button
-          id={`watched-button-${userMovieId}`}
-          class={buttonClasses}
-          hx-post={`/partials/user/toggle-filtered/${userId}/${userMovieId}/?watched=${watchedStateParam}?filter=${filter}`}
-          hx-trigger="click"
-          hx-target="#movie-list-container"
-          hx-swap="innerHTML"
-          hx-boost="true"
-        >
-          {buttonText}
-        </button>
-    }
-  </div>
+  <button
+    id={`watched-button-${userMovieId}`}
+    class={buttonClasses}
+    hx-post={route}
+    hx-trigger="click"
+    hx-target={target}
+    hx-swap="innerHTML"
+    hx-boost="true"
+  >
+    {buttonText}
+  </button>
 <div>
