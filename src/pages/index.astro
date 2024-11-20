@@ -1,11 +1,15 @@
 ---
 import MovieListItem from '../components/MovieList/MovieListItem.astro';
 import FilterForm from '../components/FilterForm/FilterForm.astro';
+import AddMovie from '../components/AddMovie/AddMovie.astro';
+import Logo from '../components/style/Logo.astro';
 import { buttonClasses } from '../components/style/twClasses/buttonClasses';
 
 import { getUserMoviesById } from '../db/models/userMovies';
 
 const host = import.meta.env.HOST_URL;
+
+const userId = '01J9W2QWVYK5SA1DJ06Q21ZCFW';
 
 ---
 <html lang="en">
@@ -17,10 +21,14 @@ const host = import.meta.env.HOST_URL;
 		<title>iLikeMovies</title>
 	</head>
   <body class="bg-gradient-to-r from-[#020e33] to-[#02185c]">
-      <FilterForm userId="01J9W2QWVYK5SA1DJ06Q21ZCFW" />
+      <div class="flex flex-col items-center justify-center">
+        <Logo />
+      </div>
+      <AddMovie userId={userId} />
+      <FilterForm userId={userId} />
       <div 
         id="movie-list-container"
-        hx-get="/partials/user/movies/01J9W2QWVYK5SA1DJ06Q21ZCFW"
+        hx-get={`/partials/user/movies/${userId}`}
         hx-trigger="load"
         class="flex flex-col items-center justify-center text-center"
       >
