@@ -3,6 +3,7 @@ import MovieListItem from '../components/MovieList/MovieListItem.astro';
 import FilterForm from '../components/FilterForm/FilterForm.astro';
 import AddMovie from '../components/AddMovie/AddMovie.astro';
 import Logo from '../components/style/Logo.astro';
+import Navbar from '../components/Navbar/Navbar.astro';
 import { buttonClasses } from '../components/style/twClasses/buttonClasses';
 
 import { getUserMoviesById } from '../db/models/userMovies';
@@ -19,20 +20,27 @@ const userId = '01J9W2QWVYK5SA1DJ06Q21ZCFW';
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>iLikeMovies</title>
-	</head>
+  </head>
   <body class="bg-gradient-to-r from-[#020e33] to-[#02185c]">
-      <div class="flex flex-col items-center justify-center">
-        <Logo />
-      </div>
+    <Navbar>
+      <Logo />
       <AddMovie userId={userId} />
       <FilterForm userId={userId} />
-      <div 
-        id="movie-list-container"
-        hx-get={`/partials/user/movies/${userId}`}
-        hx-trigger="load"
-        class="flex flex-col items-center justify-center text-center"
-      >
-      
-      </div>
+    </Navbar>
+    <p class="mt-2" />
+    <p class="mt-2" />
+    <p class="mt-2" />
+    <p class="mt-2" />
+    <p class="mt-2" />
+    <p class="mt-2" />
+    <p class="mt-2" />
+    <div 
+      id="movie-list-container"
+      hx-get={`/partials/user/movies/${userId}`}
+      hx-trigger="load"
+      class="flex flex-col items-center justify-center text-center"
+    >
+    
+    </div>
 	</body>
 </html>

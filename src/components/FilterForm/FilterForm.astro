@@ -2,8 +2,8 @@
 const { userId } = Astro.props;
 ---
 <fieldset>
-  <div class="flex flex-row items-center justify-center p-4 mt-2 space-x-3">
-    <div class="flex flex-row items-center justify-center p-4 mt-2 space-x-2">
+  <div class="flex flex-row items-center justify-center space-x-3">
+    <div class="flex flex-row items-center justify-center space-x-2">
       <input 
         type="radio"
         id="movie-filter-all" 
@@ -19,7 +19,7 @@ const { userId } = Astro.props;
       <label for="all" class="text-xl text-white font-bold">All Movies</label>
     </div>
 
-    <div class="flex flex-row items-center justify-center p-4 mt-2 space-x-2">
+    <div class="flex flex-row items-center justify-center space-x-2">
       <input 
         type="radio"
         id="movie-filter-watched" 
@@ -34,7 +34,7 @@ const { userId } = Astro.props;
       <label for="watched" class="text-xl text-white font-bold">Watched</label>
     </div>
 
-    <div class="flex flex-row items-center justify-center p-4 mt-2 space-x-2">
+    <div class="flex flex-row items-center justify-center space-x-2">
       <input 
         type="radio"
         id="movie-filter-unwatched" 
