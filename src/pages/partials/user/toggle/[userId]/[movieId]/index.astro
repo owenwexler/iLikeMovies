@@ -11,7 +11,7 @@ const watchedStateParam = Astro.url.searchParams.get('watched');
 
 let isError = false;
 
-const response = await fetch (`${import.meta.env.HOST_URL}/api/user/toggle/${userId}/${movieId}/?watched=${watchedStateParam}`);
+const response = await fetch(`${import.meta.env.HOST_URL}/api/user/toggle/${userId}/${movieId}/?watched=${watchedStateParam}`);
 const movie = await response.json();
 
 if (movie.error) {

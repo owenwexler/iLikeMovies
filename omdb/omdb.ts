@@ -4,6 +4,9 @@ import type { OMDBError } from '../src/typedefs/OMDBError';
 import type { OMDBMovieResponse } from '../src/typedefs/OMDBMovieResponse';
 import type { OMDBRatingResponse } from '../src/typedefs/OMDBRatingResponse';
 import { getOMDBOfflineMovieByTitle } from './omdbOffline/omdbOffline';
+import redis from '../redis/redis';
+import type { KeyValueOMDBResponses } from '../src/typedefs/KeyValueOMDBResponses';
+import { cacheOMDBResponse } from './cacheOMDBResponse';
 
 const formatRatingsInOMDBResponse = (
   ratings: OMDBRatingResponse[],
@@ -51,12 +54,26 @@ const getOMDBMovie = async (args: {
   const searchQuery = methodInitial === i && imdbID ? imdbID : movieTitle.toLowerCase();
 
   try {
-    const response = await fetch(
-      `http://www.omdbapi.com/?apikey=${apiKey}&${methodInitial}=${searchQuery}&r=json&plot=short`,
-    );
-    const result = await response.json();
-    const finalTitle = movieTitle ? movieTitle : result.Title;
-    return formatOMDBMovie({ title: finalTitle, movieData: result, userMovieWatchedState, userMovieId });
+    // caching all the OMDB responses in one key creates a race condition if OMDB calls are parallelized so each response gets a separate key
+    const cachedOMDBResponse = await redis.get(`ilm::cached-omdb-response::${searchQuery}`);
+    const cachedOMDBResult = JSON.parse(cachedOMDBResponse);
+    
+    if (cachedOMDBResult) {
+      console.log(`Cache Hit: ${searchQuery}`)
+      const result = { ...cachedOMDBResult };
+      const finalTitle = movieTitle ? movieTitle : result.Title;
+      return formatOMDBMovie({ title: finalTitle, movieData: result, userMovieWatchedState, userMovieId });
+    } else {
+      console.log(`Cache Miss: ${searchQuery} - making live OMDB call`);
+      const response = await fetch(
+        `http://www.omdbapi.com/?apikey=${apiKey}&${methodInitial}=${searchQuery}&r=json&plot=short`,
+      );
+      const result = await response.json();
+      const setExResult = await cacheOMDBResponse(searchQuery, result);
+      const finalTitle = movieTitle ? movieTitle : result.Title;
+      return formatOMDBMovie({ title: finalTitle, movieData: result, userMovieWatchedState, userMovieId });
+    }
+
   } catch (error) {
     const err: string = error ? error.toString() : '';
     return { error: err };

@@ -4,6 +4,9 @@ import { getTypedFilter } from '../../../../../helper/getTypedFilter';
 
 import type { FilterUnionType } from '../../../../../typedefs/FilterUnionType';
 
+import { checkCache } from '../../../../../../redis/checkCache';
+import type { UserMovie } from '../../../../../typedefs/UserMovie';
+
 export const partial = true;
 
 const { userId } = Astro.params;

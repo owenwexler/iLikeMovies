@@ -20,7 +20,7 @@ const {
   watched
 } = movie;
 
-const imageUrl = movie.poster && movie.poster !== 'No info available' ? movie.poster : '/images/movieNotFound.jpg';
+const imageUrl = movie.poster && movie.poster !== 'No info available' ? movie.poster : '/images/not-found.png';
 
 const buttonSwapIdFallback = movie.imdbId ? movie.imdbId : title.split(' ').join('-').toLowerCase(); // we should not have to use this but it is there just in case
 const userMovieId = movie.userMovieId ? movie.userMovieId : buttonSwapIdFallback;
@@ -28,7 +28,6 @@ const userMovieId = movie.userMovieId ? movie.userMovieId : buttonSwapIdFallback
 const userId = '01J9W2QWVYK5SA1DJ06Q21ZCFW';
 
 const watchedStateParam = watched ? 'watched' : 'unwatched';
-
 ---
 <PageCard>
   <div class="flex flex-row items-between justify-between">

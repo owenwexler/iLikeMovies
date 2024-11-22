@@ -4,6 +4,7 @@ import { buttonClasses } from "../style/twClasses/buttonClasses";
 import type { FilterUnionType } from "../../typedefs/FilterUnionType";
 
 import { getTypedFilter } from "../../helper/getTypedFilter";
+import { getTruncatedGenres } from "../../helper/getTruncatedGenres";
 
 // this is the only way to have a div that is replacable by HTMX without screwing up the layout, this keeps the swapped out content within the PageCard component.  Including the image in this component caused it to flicker on every toggle of the watched button which is unacceptable so the image will not be included in this component.
 const { movie, userId, userMovieId, watchedStateParam, filter } = Astro.props;
@@ -19,10 +20,10 @@ const route = typedFilter === 'all' ? `/partials/user/toggle/${userId}/${userMov
 const target = typedFilter === 'all' ? `#movie-list-item-inner-container-${userMovieId}` : '#movie-list-container';
 ---
 <div id={`movie-list-item-inner-container-${userMovieId}`} class="flex flex-col items-end justify-end">
-  <h1 class="text-xl lg:text-2xl font-bold">{title.length > 30 ? `${title.slice(0, 25)}...` : title}</h1>
-  <h2 class="text-lg lg:text-xl">{year}</h2>
-  <h2 class="text-lg lg:text-xl">{rated}</h2>
-  <h2 class="text-lg lg:text-xl">{genre}</h2>
+  <h1 class="text-xl lg:text-2xl max-sm:text-lg font-bold">{title.length > 20 ? `${title.slice(0, 16)}...` : title}</h1>
+  <h2 class="text-lg lg:text-xl max-sm:text-md">{year}</h2>
+  <h2 class="text-lg lg:text-xl max-sm:text-md">{rated}</h2>
+  <h2 class="text-lg lg:text-xl max-sm:text-md">{getTruncatedGenres(genre)}</h2>
   <div 
     id={`watched-div-${userMovieId}`}
     class="mt-4"
