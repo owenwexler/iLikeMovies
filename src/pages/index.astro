@@ -3,7 +3,10 @@ import MovieListItem from '../components/MovieList/MovieListItem.astro';
 import FilterForm from '../components/FilterForm/FilterForm.astro';
 import AddMovie from '../components/AddMovie/AddMovie.astro';
 import Logo from '../components/style/Logo.astro';
+import Spacer from '../components/style/Spacer.astro';
 import Navbar from '../components/Navbar/Navbar.astro';
+import MovieNotFoundPoster from '../components/style/MovieNotFoundPoster.astro';
+
 import { buttonClasses } from '../components/style/twClasses/buttonClasses';
 
 import { getUserMoviesById } from '../db/models/userMovies';
@@ -27,13 +30,9 @@ const userId = '01J9W2QWVYK5SA1DJ06Q21ZCFW';
       <AddMovie userId={userId} />
       <FilterForm userId={userId} />
     </Navbar>
-    <p class="mt-2" />
-    <p class="mt-2" />
-    <p class="mt-2" />
-    <p class="mt-2" />
-    <p class="mt-2" />
-    <p class="mt-2" />
-    <p class="mt-2" />
+    <Spacer topMargin={12} />
+    <Spacer topMargin={2} />
+    <div class="md:hidden mt-14" />
     <div 
       id="movie-list-container"
       hx-get={`/partials/user/movies/${userId}`}

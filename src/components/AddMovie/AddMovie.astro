@@ -3,9 +3,9 @@ import { inputClasses } from '../style/twClasses/inputClasses';
 import { buttonClasses } from '../style/twClasses/buttonClasses';
 ---
 
-  <div class="flex flex-row items-start justify-start space-x-2">
+  <div class="flex flex-row items-start justify-start space-x-6">
     <form>
-      <label for="movieTitle" class="text-white text-lg font-bold">Add Movie:</label>
+      <label for="movieTitle" class="text-white text-lg font-bold max-sm:hidden">Add Movie:</label>
       <input id="add-movie-input" name="movieTitle" class={inputClasses} />
       <button id="add-movie-submit" type="submit" class={buttonClasses}>Add Movie</button>
     </form>

@@ -1,0 +1,7 @@
+---
+const { topMargin } = Astro.props;
+
+const typedTopMargin: number = topMargin ? Number(topMargin) : 12;
+---
+<div class={`mt-${typedTopMargin} p-2`}>
+</div>
