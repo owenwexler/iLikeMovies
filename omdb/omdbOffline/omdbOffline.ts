@@ -21,6 +21,7 @@ for (const key in typedOMDBOfflineData) {
   fullOMDBOfflineData[imdbID] = { ...movie };
 }
 
+// OMDB Offline still caches responses and attempts to get cached responses from the cache in order to ensure cache functionality works in offline mode too
 const getOMDBOfflineMovieByTitle = async (title: string, userMovieWatchedState?: boolean, userMovieId?: string) => {
   const lowerCaseTitle = title.toLowerCase();
   const key = `ilm::cached-omdb-response::${lowerCaseTitle}`;
@@ -32,10 +33,12 @@ const getOMDBOfflineMovieByTitle = async (title: string, userMovieWatchedState?:
   try {
     if (cachedOMDBResult) {
       console.log(`Cache Hit - ${key}`);
-      if (cachedOMDBResult.Response = 'False') {
-        return { ...movieNotFound, title, response: false, watched: userMovieWatchedState ? userMovieWatchedState : false, userMovieId };
+      if (cachedOMDBResult.Response === 'False') {
+        const returnedMovie = { ...movieNotFound, title, response: false, watched: userMovieWatchedState ? userMovieWatchedState : false, userMovieId };
+        return returnedMovie;
       } else {
-        return formatOMDBMovie({ title, movieData: cachedOMDBResult as OMDBMovieResponse, userMovieWatchedState: watchedState, userMovieId });
+        const returnedMovie = formatOMDBMovie({ title, movieData: cachedOMDBResult as OMDBMovieResponse, userMovieWatchedState: watchedState, userMovieId });
+        return returnedMovie;
       }
     } else {
       console.log(`Cache Miss - ${key} - doing live OMDB call`);

@@ -23,11 +23,6 @@ export const GET: APIRoute = async ({ params, request }) => {
     const result = await setMovieWatched({ userMovieId: movieId, currentMovieWatchedState: watchedState });
     const newMovie = await getSingleUserMovieById({ userId, userMovieId: movieId });
 
-    // TODO: the cache MUST be used/leveraged here - an OMDB call for every toggle would be a disaster!
-
-    const cachedUserMovieLookup = await redis.get(`ilm::user-movies-lookup::${userId}::all`);
-    console.log(cachedUserMovies);
-
     const commonArgs = {
       movieTitle: newMovie.title,
       apiKey: omdbAPIKey,

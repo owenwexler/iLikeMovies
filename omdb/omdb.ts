@@ -29,7 +29,8 @@ const getOMDBMovie = async (args: {
 
   if (devMode === 'offline') {
     console.log('OFFLINE: offline mode hit');
-    return getOMDBOfflineMovieByTitle(movieTitle, userMovieWatchedState, userMovieId);
+    const result = await getOMDBOfflineMovieByTitle(movieTitle, userMovieWatchedState, userMovieId);
+    return result;
   }
 
   let methodInitial;
@@ -51,10 +52,10 @@ const getOMDBMovie = async (args: {
       break;
   }
   
-  const searchQuery = methodInitial === i && imdbID ? imdbID : movieTitle.toLowerCase();
+  const searchQuery = methodInitial === 'i' && imdbID ? imdbID : movieTitle.toLowerCase();
 
   try {
-    // caching all the OMDB responses in one key creates a race condition if OMDB calls are parallelized so each response gets a separate key
+    // caching all the OMDB responses in one key creates a race condition if OMDB calls are parallelized (which is likely to happen) so each response gets a separate key
     const cachedOMDBResponse = await redis.get(`ilm::cached-omdb-response::${searchQuery}`);
     const cachedOMDBResult = JSON.parse(cachedOMDBResponse);
     

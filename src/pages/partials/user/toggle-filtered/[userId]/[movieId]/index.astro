@@ -22,16 +22,8 @@ if (movie.error) {
   isError = true;
 }
 
-const allMoviesData = await checkCache(
-  { 
-    key: `ilm::user-movies::${userId}::${filter}`, 
-    time: (60 * 1000) * 30,
-    callback: async () => {
-      const allMoviesResponse = await fetch (`${import.meta.env.HOST_URL}/api/user/movies/${userId}?filter=${filter}`);
-      const allMoviesResult = await allMoviesResult.json();
-      return result;
-    }
-  });
+const allMoviesResponse = await fetch (`${import.meta.env.HOST_URL}/api/user/movies/${userId}?filter=${filter}`);
+const allMoviesData = await allMoviesResponse.json();
 
 if (allMoviesData.error) {
   isError = true;
