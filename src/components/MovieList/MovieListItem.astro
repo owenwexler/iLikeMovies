@@ -6,6 +6,8 @@ import MovieListItemInner from "./MovieListItemInner.astro";
 import { buttonClasses } from "../style/twClasses/buttonClasses";
 import { Image } from "astro:assets";
 
+import { userId } from '../../data/hardcodedUserId';
+
 const { movie, filter } = Astro.props;
 
 const typedMovie = movie ? movie as Movie : movieNotFound;
@@ -24,8 +26,6 @@ const imageUrl = movie.poster && movie.poster !== 'No info available' ? movie.po
 
 const buttonSwapIdFallback = movie.imdbId ? movie.imdbId : title.split(' ').join('-').toLowerCase(); // we should not have to use this but it is there just in case
 const userMovieId = movie.userMovieId ? movie.userMovieId : buttonSwapIdFallback;
-
-const userId = '01J9W2QWVYK5SA1DJ06Q21ZCFW';
 
 const watchedStateParam = watched ? 'watched' : 'unwatched';
 ---

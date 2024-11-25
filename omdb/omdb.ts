@@ -155,9 +155,6 @@ const formatOMDBMovie = (args: FormatOMDBMovieArgs): Movie => {
       response: Response === 'True' ? true : false,
     };
 
-    // TODO: cache formatted response without the two user-specific fields in REDIS, whenever we add REDIS
-    // REDIS will be used to cache formatted OMDB responses and reduce extraneous calls to OMDB eventually
-
     return {
       ...formattedMovieResponse,
       watched: userMovieWatchedState ? userMovieWatchedState : false,

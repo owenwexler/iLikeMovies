@@ -99,9 +99,14 @@ interface AddUserMovieArgs {
 }
 
 const addUserMovie = async (args: AddUserMovieArgs) => {
-  const { title, userId } = args;
+  const { title, userMovieId, userId } = args;
 
-  const imdbId: string = args.imdbId ? `'${args.imdbId.toString()}'` : 'NULL';
+  const imdbId: string = args.imdbId ? args.imdbId.toString() : 'NULL';
+
+  console.log(`title: ${title}`)
+  console.log(`userMovieId: ${userMovieId}`)
+  console.log(`userId: ${userId}`)
+  console.log(`imdbId: ${imdbId}`)
 
   if (!isValidULID(userId)) {
     throw new Error('userId is of invalid ULID format at addMovie');
@@ -112,7 +117,7 @@ const addUserMovie = async (args: AddUserMovieArgs) => {
   }
 
   try {
-    const result = await sql`INSERT INTO user_movies (movie_title, imdb_id, user_id) VALUES ('${title}', ${imdbId}, '${userId}');`;
+    const result = await sql`INSERT INTO user_movies (user_movie_id, movie_title, imdb_id, user_id) VALUES (${userMovieId.toString()}, ${title.toString()}, ${imdbId.toString()}, ${userId.toString()});`;
     return result;
   } catch (error) {
     console.error(error);
@@ -123,5 +128,6 @@ const addUserMovie = async (args: AddUserMovieArgs) => {
 export {
   getUserMoviesById,
   getSingleUserMovieById,
-  setMovieWatched
+  setMovieWatched,
+  addUserMovie
 }

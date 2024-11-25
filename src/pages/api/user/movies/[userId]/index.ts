@@ -5,6 +5,7 @@ import { getOMDBMovie } from '../../../../../../omdb/omdb';
 import { formatArrayAsCacheObject } from '../../../../../helper/formatArrayAsCacheObject';
 import type { FilterUnionType } from '../../../../../typedefs/FilterUnionType';
 import { getTypedFilter } from '../../../../../helper/getTypedFilter';
+import { getOMDBEnvVariables } from '../../../../../helper/getOMDBEnvVariables';
 
 export const GET: APIRoute = async ({ params, request }) => {
   const { userId } = params;
@@ -14,10 +15,7 @@ export const GET: APIRoute = async ({ params, request }) => {
   const filterParam = searchParams.slice(searchParams.indexOf('=') + 1);
   const filter: FilterUnionType = getTypedFilter(filterParam);
 
-  const env = import.meta.env;
-  const omdbAPIKey = env.OMDB_API_KEY;
-  const nodeEnv = env.NODE_ENV ? env.NODE_ENV : 'development';
-  const devMode = nodeEnv === "development" && env.DEV_MODE === 'offline' ? 'offline' : 'online';
+  const { omdbAPIKey, nodeEnv, devMode } = getOMDBEnvVariables(import.meta.env as Env);
 
   try {
     const userMovieResponse: UserMovie[] = await getUserMoviesById({ inputUserId: userId, filter });
