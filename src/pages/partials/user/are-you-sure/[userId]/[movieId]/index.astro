@@ -1,4 +1,6 @@
 ---
+export const partial = true;
+
 import { buttonClasses } from "../../../../../../components/style/twClasses/buttonClasses";
 
 const { userId, movieId } = Astro.params;
@@ -12,11 +14,16 @@ const revertDeleteButtonClasses = `${buttonClasses} bg-red-600 hover:bg-red-500`
     <button
       id={`confirm-delete-${movieId}`}
       class={confirmDeleteButtonClasses}
+      hx-delete={`partials/user/delete-movie/${userId}/${movieId}`}
+      hx-target="#movie-list-container"
+      hx-replace="innerHTML"
+      hx-trigger="click"
+      hx-boost={true}
     >
       Yes
     </button>
     <button
-      id={`confirm-delete-${movieId}`}
+      id={`revert-delete-{movieId}`}
       class={revertDeleteButtonClasses}
       hx-get={`partials/user/revert-delete-movie/${userId}/${movieId}`}
       hx-target={`#are-you-sure-${movieId}`}
@@ -28,3 +35,16 @@ const revertDeleteButtonClasses = `${buttonClasses} bg-red-600 hover:bg-red-500`
   </div>
 </div>
 
+<script>
+  const allRadio = document.getElementById('movie-filter-all');
+  const watchedRadio = document.getElementById('movie-filter-watched');
+  const unwatchedRadio = document.getElementById('movie-filter-unwatched');
+
+  const confirmDeleteButton = document.getElementById(`confirm-delete-${movieId}`);
+
+  confirmDeleteButton.addEventListener('click', () => {
+    allRadio.checked = true;
+    watchedRadio.checked = false;
+    unwatchedRadio.checked = false;
+  });
+</script>

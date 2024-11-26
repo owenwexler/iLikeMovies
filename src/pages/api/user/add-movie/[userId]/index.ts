@@ -32,8 +32,6 @@ export const POST: APIRoute = async ({ params, request }) => {
       imdbId: omdbMovieResponse.imdbID ? omdbMovieResponse.imdbID : null
     });
 
-    console.log(addUserMovieResponse);
-
     return new Response(
       JSON.stringify(omdbMovieResponse),
       {

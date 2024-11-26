@@ -126,6 +126,8 @@ interface DeleteUserMovieArgs {
 }
 
 const deleteUserMovie = async (args: DeleteUserMovieArgs) => {
+  const { userId, userMovieId } = args;
+
   if (!isValidULID(userId)) {
     throw new Error('userId is of invalid ULID format at deleteUserMovie');
   }
