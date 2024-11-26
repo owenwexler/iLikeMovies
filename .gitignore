@@ -25,3 +25,7 @@ pnpm-debug.log*
 
 #OMDB Offline JSON
 omdbOffline.json
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

@@ -43,6 +43,6 @@ export const GET: APIRoute = async ({ params, request }) => {
     return new Response(JSON.stringify(data));
   } catch (error) {
     console.error(error);
-    return { error }
+    return new Response(JSON.stringify({ error }), { status: 500 });
   }
 }; 

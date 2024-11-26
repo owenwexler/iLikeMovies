@@ -4,6 +4,11 @@ import type { FilterUnionType } from '../../typedefs/FilterUnionType';
 import type { UserMovie } from '../../typedefs/UserMovie';
 import sql from '../db';
 
+interface GenericUserMovieModelArgs {
+  userId: string;
+  userMovieId: string;
+}
+
 interface GetUserMoviesByIdArgs {
   inputUserId: string;
   filter?: FilterUnionType;
@@ -34,12 +39,7 @@ const getUserMoviesById = async (args: GetUserMoviesByIdArgs): UserMovie[] => {
   }
 }
 
-interface GetSingleUserMovieByIdArgs {
-  userId: string;
-  userMovieId: string;
-}
-
-const getSingleUserMovieById = async (args: GetSingleUserMovieByIdArgs) => {
+const getSingleUserMovieById = async (args: GenericUserMovieModelArgs) => {
   const {
     userId,
     userMovieId
@@ -91,10 +91,8 @@ const setMovieWatched = async (args: SetMovieWatchedArgs) => {
   }
 }
 
-interface AddUserMovieArgs {
+interface AddUserMovieArgs extends GenericUserMovieModelArgs {
   title: string;
-  userMovieId: string;
-  userId: string;
   imdbId?: string | null;
 }
 
