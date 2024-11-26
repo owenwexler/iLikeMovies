@@ -103,17 +103,12 @@ const addUserMovie = async (args: AddUserMovieArgs) => {
 
   const imdbId: string = args.imdbId ? args.imdbId.toString() : 'NULL';
 
-  console.log(`title: ${title}`)
-  console.log(`userMovieId: ${userMovieId}`)
-  console.log(`userId: ${userId}`)
-  console.log(`imdbId: ${imdbId}`)
-
   if (!isValidULID(userId)) {
-    throw new Error('userId is of invalid ULID format at addMovie');
+    throw new Error('userId is of invalid ULID format at addUserMovie');
   }
 
   if (!isValidULID(userMovieId)) {
-    throw new Error('userMovieId is of invalid ULID format at addMovie');
+    throw new Error('userMovieId is of invalid ULID format at addUserMovie');
   }
 
   try {
@@ -125,9 +120,33 @@ const addUserMovie = async (args: AddUserMovieArgs) => {
   }
 }
 
+interface DeleteUserMovieArgs {
+  userId: string;
+  userMovieId: string;
+}
+
+const deleteUserMovie = async (args: DeleteUserMovieArgs) => {
+  if (!isValidULID(userId)) {
+    throw new Error('userId is of invalid ULID format at deleteUserMovie');
+  }
+
+  if (!isValidULID(userMovieId)) {
+    throw new Error('userMovieId is of invalid ULID format at deleteUserMovie');
+  }
+
+  try {
+    const result = await sql`DELETE FROM user_movies WHERE user_id = ${userId} AND user_movie_id = ${userMovieId}`;
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 export {
   getUserMoviesById,
   getSingleUserMovieById,
   setMovieWatched,
-  addUserMovie
+  addUserMovie,
+  deleteUserMovie
 }

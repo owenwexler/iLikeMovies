@@ -28,6 +28,8 @@ const buttonSwapIdFallback = movie.imdbId ? movie.imdbId : title.split(' ').join
 const userMovieId = movie.userMovieId ? movie.userMovieId : buttonSwapIdFallback;
 
 const watchedStateParam = watched ? 'watched' : 'unwatched';
+
+const deleteButtonClasses = `${buttonClasses} w-full bg-red-600 hover:bg-red-500 py-1`;
 ---
 <PageCard>
   <div class="flex flex-row items-between justify-between">
@@ -45,4 +47,19 @@ const watchedStateParam = watched ? 'watched' : 'unwatched';
       filter={filter}
     /> 
   </div>
+  <div class="flex flex-col items-center justify-center mt-3">
+    <button 
+      id={`delete-movie-${userMovieId}`} 
+      class={deleteButtonClasses}
+      hx-get={`/partials/user/are-you-sure/${userId}/${userMovieId}`}
+      hx-trigger="click"
+      hx-target={`#are-you-sure-${userMovieId}`}
+      hx-replace="innerHTML"
+      hx-boost={true}
+    >
+      DELETE THIS MOVIE
+    </button>
+    <div id={`are-you-sure-${userMovieId}`}>
+
+    </div>
 </PageCard>

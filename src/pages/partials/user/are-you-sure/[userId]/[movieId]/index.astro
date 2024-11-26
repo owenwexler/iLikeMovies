@@ -1,0 +1,30 @@
+---
+import { buttonClasses } from "../../../../../../components/style/twClasses/buttonClasses";
+
+const { userId, movieId } = Astro.params;
+
+const confirmDeleteButtonClasses = `${buttonClasses} bg-green-600 hover:bg-green-500`
+const revertDeleteButtonClasses = `${buttonClasses} bg-red-600 hover:bg-red-500`
+---
+<div class="flex flex-col items-center justify-center">
+  <h1 class="text-lg font-bold">Really delete {movieId}?</h1>
+  <div class="flex flex-row items-center justify-center space-x-3">
+    <button
+      id={`confirm-delete-${movieId}`}
+      class={confirmDeleteButtonClasses}
+    >
+      Yes
+    </button>
+    <button
+      id={`confirm-delete-${movieId}`}
+      class={revertDeleteButtonClasses}
+      hx-get={`partials/user/revert-delete-movie/${userId}/${movieId}`}
+      hx-target={`#are-you-sure-${movieId}`}
+      hx-replace="outerHTML"
+      hx-trigger="click"
+    >
+      No
+    </button>
+  </div>
+</div>
+
