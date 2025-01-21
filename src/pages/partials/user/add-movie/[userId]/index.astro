@@ -2,6 +2,7 @@
 export const partial = true; 
 
 import MovieList from "../../../../../components/MovieList/MovieList.astro";
+import Error from "../../../../../components/Error/Error.astro";
 
 import { formatUrlTitle } from "../../../../../helper/formatUrlTitle";
 
@@ -35,9 +36,9 @@ const movies = !data.error ? data as Movie[] : [] as Movie[];
 {
   isError
   ?
-    <p>We're sorry, something went wrong.</p>
+    <Error />
   :
-  <MovieList movies={movies} filter="all" />
+    <MovieList movies={movies} filter="all" />
 }
 
 

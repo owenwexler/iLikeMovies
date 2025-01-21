@@ -1,5 +1,6 @@
 ---
 import MovieList from '../../../../../components/MovieList/MovieList.astro';
+import Error from '../../../../../components/Error/Error.astro';
 import { getTypedFilter } from '../../../../../helper/getTypedFilter';
 
 import type { FilterUnionType } from '../../../../../typedefs/FilterUnionType';
@@ -28,7 +29,7 @@ const movies = !data.error ? data as Movie[] : [] as Movie[];
 {
   isError
   ?
-    <p>We're sorry, something went wrong.</p>
+    <Error />
   :
     <MovieList movies={movies} filter={filter}/>
 }

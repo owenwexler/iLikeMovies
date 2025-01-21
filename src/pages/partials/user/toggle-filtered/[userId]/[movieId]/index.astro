@@ -1,5 +1,6 @@
 ---
 import MovieList from "../../../../../../components/MovieList/MovieList.astro";
+import Error from "../../../../../../components/Error/Error.astro";
 import { buttonClasses } from "../../../../../../components/style/twClasses/buttonClasses";
 import { getTypedFilter } from "../../../../../../helper/getTypedFilter";
 
@@ -35,7 +36,7 @@ const movies = !allMoviesData.error ? allMoviesData as Movie[] : [] as Movie[];
 {
   isError
   ?
-    <p>We're sorry, something went wrong.</p>
+    <Error />
   :
     <MovieList movies={movies} filter={filter}/>
 }
