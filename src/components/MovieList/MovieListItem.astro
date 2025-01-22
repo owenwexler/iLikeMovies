@@ -7,6 +7,7 @@ import { buttonClasses } from "../style/twClasses/buttonClasses";
 import { Image } from "astro:assets";
 
 import { userId } from '../../data/hardcodedUserId';
+import { formatTitleForId } from "../../helper/formatTitleForId";
 
 const { movie, filter } = Astro.props;
 
@@ -31,9 +32,11 @@ const watchedStateParam = watched ? 'watched' : 'unwatched';
 
 const deleteButtonClasses = `${buttonClasses} w-full bg-red-600 hover:bg-red-500 py-1`;
 ---
-<PageCard>
+<PageCard id={`movie-list-item-page-card-${formatTitleForId(title)}`} testId="movie-list-item-page-card">
   <div class="flex flex-row items-between justify-between">
-    <Image 
+    <Image
+      id={movie-list-item-image-${formatTitleForId(title)}}
+      data-testid="movie-list-item-image"
       src={imageUrl} 
       alt={title} 
       width={100} 
@@ -50,6 +53,7 @@ const deleteButtonClasses = `${buttonClasses} w-full bg-red-600 hover:bg-red-500
   <div class="flex flex-col items-center justify-center mt-3">
     <button 
       id={`delete-movie-${userMovieId}`} 
+      data-testid="delete-movie-button"
       class={deleteButtonClasses}
       hx-get={`/partials/user/are-you-sure/${userId}/${userMovieId}`}
       hx-trigger="click"

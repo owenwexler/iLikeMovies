@@ -30,6 +30,7 @@ const target = typedFilter === 'all' ? `#movie-list-item-inner-container-${userM
 >
   <button
     id={`watched-button-${userMovieId}`}
+    data-testid="watched-button"
     class={buttonClasses}
     hx-post={route}
     hx-trigger="click"

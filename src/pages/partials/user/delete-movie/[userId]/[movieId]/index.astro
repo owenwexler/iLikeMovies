@@ -2,6 +2,7 @@
 export const partial = true;
 
 import MovieList from "../../../../../../components/MovieList/MovieList.astro";
+import Error from "../../../../../../components/Error/Error.astro";
 
 const { userId, movieId } = Astro.params;
 
@@ -39,7 +40,7 @@ const movies = !data.error ? data as Movie[] : [] as Movie[];
 {
   isFetchError
   ?
-    <p>We're sorry, something went wrong.</p>
+    <Error />
   :
     <MovieList movies={movies} filter="all" />
 }
