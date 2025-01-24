@@ -16,7 +16,7 @@ const { userId } = Astro.props;
         hx-replace="innerHTML"
         hx-boost="true"
       />
-      <label for="all" class="text-xl max-sm:text-sm text-white font-bold">All Movies</label>
+      <label id="label-all" for="all" class="text-xl max-sm:text-sm text-white font-bold">All Movies</label>
     </div>
 
     <div class="flex flex-row items-center justify-center space-x-2">
@@ -31,7 +31,7 @@ const { userId } = Astro.props;
         hx-replace="innerHTML"
         hx-boost="true"
       />
-      <label for="watched" class="text-xl max-sm:text-sm text-white font-bold">Watched</label>
+      <label id="label-watched" for="watched" class="text-xl max-sm:text-sm text-white font-bold">Watched</label>
     </div>
 
     <div class="flex flex-row items-center justify-center space-x-2">
@@ -46,7 +46,7 @@ const { userId } = Astro.props;
         hx-replace="innerHTML"
         hx-boost="true"
       />
-      <label for="all" class="text-xl max-sm:text-sm text-white font-bold">To Watch</label>
+      <label id="label-unwatched" for="unwatched" class="text-xl max-sm:text-sm text-white font-bold">To Watch</label>
     </div>
   </div>
 </fieldset>

@@ -25,9 +25,25 @@ const setGalaxyFoldViewport = async (page: Page) => {
   return;
 }
 
+interface AssertImageSrcArgs {
+  id: string;
+  src: string;
+}
+
+const assertImageSrc = (page: Page, args: AssertImageSrcArgs) => {
+  const { id, src } = args;
+  const locator = page.locator(id)
+
+  await expect(locator).toBeVisible();
+  const actualSrc = await locator.getAttribute('src');
+
+  await expect(actualSrc).toEqual(src);
+}
+
 interface CheckLocatorExistenceArgs extends GenericExistenceCheckArgs {
   locator: string;
   text?: string;
+  role?: string;
 }
 
 const checkLocatorExistence = async (page: Page, args: CheckLocatorExistenceArgs) {
@@ -37,19 +53,14 @@ const checkLocatorExistence = async (page: Page, args: CheckLocatorExistenceArgs
     if (text) {
       await expect(page.locator(locator)).toContainText(text);
     }
+
+    if (role) {
+      await expect(page.locator(locator)).toHaveRole(role);
+  }
   } else {
     await expect(page.locator(locator)).not.toBeVisible();
   }
 }
-
-const checkErrorTextExistence = async (page: Page, args: GenericExistenceCheckArgs) => {
-  await checkLocatorExistence(page, {
-    locator: '#error-text',
-    text: 'We\'re sorry, something went wrong.',
-    exists 
-  });
-}
-
 interface CheckMovieListItemExistenceArgs extends GenericExistenceCheckArgs {
   movie: Movie;
 }
@@ -120,19 +131,17 @@ const checkMovieListItemExistence = async (page: Page, args: CheckMovieListItemE
   await checkLocatorExistence(page, {
     locator: `#watched-button-${id}`,
     text: watched ? 'Watched' : 'To Watch',
-    exists 
+    role: 'button',
+    exists
   });
-
-  await expect(page.locator(`#watched-button-${id}`)).toHaveRole('button');
   
   const deleteMovieButtonId = `#delete-movie-${id}`
   await checkLocatorExistence(page, {
     locator: deleteMovieButtonId,
     text: 'DELETE THIS MOVIE',
+    role: 'button',
     exists 
   });
-
-  await expect(page.locator(deleteMovieButtonId)).toHaveRole('button');
 }
 
 export {
@@ -142,5 +151,6 @@ export {
   setGalaxyFoldViewport,
   checkLocatorExistence,
   checkMovieListItemExistence
-  checkErrorTextExistence
+  checkErrorTextExistence,
+  assertImageSrc
 }

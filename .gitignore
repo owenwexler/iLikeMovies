@@ -25,6 +25,10 @@ pnpm-debug.log*
 
 #OMDB Offline JSON
 omdbOffline.json
+
+# test user data JSON
+testUserData.json
+
 /test-results/
 /playwright-report/
 /blob-report/
