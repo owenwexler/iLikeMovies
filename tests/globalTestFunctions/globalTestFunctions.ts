@@ -30,7 +30,7 @@ interface AssertImageSrcArgs {
   src: string;
 }
 
-const assertImageSrc = (page: Page, args: AssertImageSrcArgs) => {
+const assertImageSrc = async (page: Page, args: AssertImageSrcArgs) => {
   const { id, src } = args;
   const locator = page.locator(id)
 
@@ -46,8 +46,8 @@ interface CheckLocatorExistenceArgs extends GenericExistenceCheckArgs {
   role?: string;
 }
 
-const checkLocatorExistence = async (page: Page, args: CheckLocatorExistenceArgs) {
-  const { locator, text, exists } = args;
+const checkLocatorExistence = async (page: Page, args: CheckLocatorExistenceArgs) => {
+  const { locator, text, role, exists } = args;
   if (exists) {
     await expect(page.locator(locator)).toBeVisible();
     if (text) {
@@ -66,9 +66,9 @@ interface CheckMovieListItemExistenceArgs extends GenericExistenceCheckArgs {
 }
 
 const checkMovieListItemExistence = async (page: Page, args: CheckMovieListItemExistenceArgs) => {
-  const { 
-    movie, 
-    exists 
+  const {
+    movie,
+    exists
   } = args;
 
   const {
@@ -86,62 +86,82 @@ const checkMovieListItemExistence = async (page: Page, args: CheckMovieListItemE
 
   await checkLocatorExistence(page, {
     locator: `movie-list-item-page-card-${id}`,
-    exists 
+    exists
   });
 
   const imageId = `#movie-list-item-image-${id}`;
   await checkLocatorExistence(page, {
     locator: imageId,
-    exists 
+    exists
   });
-  
+
   if (exists) {
     await expect(page.locator(imageId)).tohaveAltText(title);
   }
 
   await checkLocatorExistence(page, {
     locator: `#movie-list-item-inner-container-${userMovieId}`,
-    exists 
+    exists
   });
-  
+
   await checkLocatorExistence(page, {
     locator: `#movie-list-item-title-${titleId}`,
     text: title.length > 20 ? `${title.slice(0, 16)}...` : title,
-    exists 
+    exists
   });
 
   await checkLocatorExistence(page, {
     locator: `#movie-list-item-year-${titleId}`,
     text: year,
-    exists 
+    exists
   });
 
   await checkLocatorExistence(page, {
     locator: `#movie-list-item-rating-${titleId}`,
     text: rated,
-    exists 
+    exists
   });
-  
+
   await checkLocatorExistence(page, {
     locator: `#movie-list-item-genres-${titleId}`,
     text: getTruncatedGenres(genre),
-    exists 
+    exists
   });
-  
+
   await checkLocatorExistence(page, {
     locator: `#watched-button-${id}`,
     text: watched ? 'Watched' : 'To Watch',
     role: 'button',
     exists
   });
-  
+
   const deleteMovieButtonId = `#delete-movie-${id}`
   await checkLocatorExistence(page, {
     locator: deleteMovieButtonId,
     text: 'DELETE THIS MOVIE',
     role: 'button',
-    exists 
+    exists
   });
+}
+
+interface CheckMultipleUserMoviesArgs {
+  movies: UserMovie;
+  exists: true;
+}
+
+const checkMultipleUserMovies = async (page: Page, args: CheckMultipleUserMoviesArgs) => {
+  const { movies, exists } = args;
+
+  const promises = [];
+
+  for (const movie of movies) {
+    promises.push(checkMovieListItemExistence(page, {
+      movie,
+      exists: true
+    }));
+  }
+
+  await Promise.all(promises);
 }
 
 export {
@@ -150,7 +170,7 @@ export {
   setDesktopViewport,
   setGalaxyFoldViewport,
   checkLocatorExistence,
-  checkMovieListItemExistence
-  checkErrorTextExistence,
+  checkMovieListItemExistence,
+  checkMultipleUserMovies,
   assertImageSrc
 }

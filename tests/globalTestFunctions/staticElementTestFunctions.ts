@@ -2,10 +2,10 @@ import type { Page } from '@playwright/test';
 import { checkLocatorExistence, assertImageSrc } from './globalTestFunctions';
 import { GenericExistenceCheckArgs } from '../../src/typedefs/GenericExistenceCheckArgs.ts';
 
-const checkLogoExistence = (page: Page, args: GenericExistenceCheckArgs) => {
+const checkLogoExistence = async (page: Page, args: GenericExistenceCheckArgs) => {
   const { exists } = args;
 
-  await checkLocatorExistence(page {
+  await checkLocatorExistence(page, {
     locator: '#logo',
     exists
   });
@@ -16,7 +16,7 @@ const checkLogoExistence = (page: Page, args: GenericExistenceCheckArgs) => {
   });
 }
 
-const checkAddMovieFormExistence = (page: Page, args: GenericExistenceCheckArgs) => {
+const checkAddMovieFormExistence = async (page: Page, args: GenericExistenceCheckArgs) => {
   const { exists } = args;
 
   await checkLocatorExistence(page, {
@@ -37,26 +37,26 @@ const checkAddMovieFormExistence = (page: Page, args: GenericExistenceCheckArgs)
   });
 }
 
-const checkFilterFormExistence = (page: Page, args: GenericExistenceCheckArgs) => {
+const checkFilterFormExistence = async (page: Page, args: GenericExistenceCheckArgs) => {
   const { exists } = args;
 
   const allButtonId = '#movie-filter-all';
-  await checkLocatorExistence(page {
-    locator: allButtonId
+  await checkLocatorExistence(page, {
+    locator: allButtonId,
     exists,
     role: 'input'
   });
   
   const watchedButtonId = '#movie-filter-watched';
-  await checkLocatorExistence(page {
-    locator: watchedButtonId
+  await checkLocatorExistence(page, {
+    locator: watchedButtonId,
     exists,
     role: 'input'
   });
   
   const unwatchedButtonId = '#movie-filter-unwatched';
-  await checkLocatorExistence(page {
-    locator: unwatchedButtonId
+  await checkLocatorExistence(page, {
+    locator: unwatchedButtonId,
     exists,
     role: 'input'
   });
@@ -72,7 +72,7 @@ const checkErrorTextExistence = async (page: Page, args: GenericExistenceCheckAr
 
 export {
   checkLogoExistence,
-  checkErrorTextExistence
+  checkErrorTextExistence,
   checkAddMovieFormExistence,
   checkFilterFormExistence
 }

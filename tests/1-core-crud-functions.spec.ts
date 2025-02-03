@@ -7,7 +7,7 @@ test.describe('Static elements', () => {
     await page.goto('/');
   });
 
-  test('All static elements are visible on the page', () => {
+  test('All static elements are visible on the page', async ({ page }) => {
 
   });
 });
