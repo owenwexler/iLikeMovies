@@ -1,11 +1,11 @@
 import { test, expect } from '@playwright/test';
-import { checkLocatorExistence } from './globalTestFunctions/globalTestFunctions';
+import { checkLocatorExistence, setMobileViewport } from './globalTestFunctions/globalTestFunctions';
 
-import { checkLogoExistence, checkAddMovieFormExistence } from './globalTestFunctions/staticElementTestFunctions';
+import { checkLogoExistence, checkAddMovieFormExistence, checkFilterFormExistence } from './globalTestFunctions/staticElementTestFunctions';
 
 test.describe('Static elements', () => {
   test.beforeEach(async ({ page }) => {
-    await setTabletViewport(page);
+    await setMobileViewport(page);
     await page.goto('/');
   });
 

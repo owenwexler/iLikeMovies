@@ -12,7 +12,7 @@ const checkLogoExistence = async (page: Page, args: GenericExistenceCheckArgs) =
 
   await assertImageSrc(page, {
     id: '#logo',
-    src: '/images/iLikeMovies-logo.svg'
+    src: '/public/images/iLikeMovies-logo.svg'
   });
 }
 
@@ -27,7 +27,7 @@ const checkAddMovieFormExistence = async (page: Page, args: GenericExistenceChec
   await checkLocatorExistence(page, {
     locator: '#add-movie-input',
     exists,
-    role: 'input'
+    role: 'textbox'
   });
 
   await checkLocatorExistence(page, {
@@ -44,21 +44,21 @@ const checkFilterFormExistence = async (page: Page, args: GenericExistenceCheckA
   await checkLocatorExistence(page, {
     locator: allButtonId,
     exists,
-    role: 'input'
+    role: 'radio'
   });
   
   const watchedButtonId = '#movie-filter-watched';
   await checkLocatorExistence(page, {
     locator: watchedButtonId,
     exists,
-    role: 'input'
+    role: 'radio'
   });
   
   const unwatchedButtonId = '#movie-filter-unwatched';
   await checkLocatorExistence(page, {
     locator: unwatchedButtonId,
     exists,
-    role: 'input'
+    role: 'radio'
   });
 }
 

@@ -32,7 +32,7 @@ interface AssertImageSrcArgs {
 
 const assertImageSrc = async (page: Page, args: AssertImageSrcArgs) => {
   const { id, src } = args;
-  const locator = page.locator(id)
+  const locator = page.locator(id);
 
   await expect(locator).toBeVisible();
   const actualSrc = await locator.getAttribute('src');
@@ -85,7 +85,7 @@ const checkMovieListItemExistence = async (page: Page, args: CheckMovieListItemE
   const id = formatTitleForId(title);
 
   await checkLocatorExistence(page, {
-    locator: `movie-list-item-page-card-${id}`,
+    locator: `#movie-list-item-page-card-${id}`,
     exists
   });
 
@@ -96,7 +96,8 @@ const checkMovieListItemExistence = async (page: Page, args: CheckMovieListItemE
   });
 
   if (exists) {
-    await expect(page.locator(imageId)).tohaveAltText(title);
+    await expect(page.getByAltText(title)).toBeVisible();
+    await expect(page.getByAltText(title)).toHaveRole('img');
   }
 
   await checkLocatorExistence(page, {
@@ -105,25 +106,25 @@ const checkMovieListItemExistence = async (page: Page, args: CheckMovieListItemE
   });
 
   await checkLocatorExistence(page, {
-    locator: `#movie-list-item-title-${titleId}`,
+    locator: `#movie-list-item-title-${id}`,
     text: title.length > 20 ? `${title.slice(0, 16)}...` : title,
     exists
   });
 
   await checkLocatorExistence(page, {
-    locator: `#movie-list-item-year-${titleId}`,
+    locator: `#movie-list-item-year-${id}`,
     text: year,
     exists
   });
 
   await checkLocatorExistence(page, {
-    locator: `#movie-list-item-rating-${titleId}`,
+    locator: `#movie-list-item-rating-${id}`,
     text: rated,
     exists
   });
 
   await checkLocatorExistence(page, {
-    locator: `#movie-list-item-genres-${titleId}`,
+    locator: `#movie-list-item-genres-${id}`,
     text: getTruncatedGenres(genre),
     exists
   });
