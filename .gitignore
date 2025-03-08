@@ -28,6 +28,7 @@ omdbOffline.json
 
 # test user data JSON
 testUserData.json
+earth.ts
 
 /test-results/
 /playwright-report/

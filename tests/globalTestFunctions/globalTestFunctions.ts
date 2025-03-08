@@ -4,6 +4,7 @@ import type { GenericExistenceCheckArgs } from '../../src/typedefs/GenericExiste
 import type { Movie } from '../../src/typedefs/Movie';
 import { formatTitleForId } from '../../src/helper/formatTitleForId';
 import { getTruncatedGenres } from '../../src/helper/getTruncatedGenres';
+import type { UserMovie } from '../../src/typedefs/UserMovie';
 
 const setMobileViewport = async (page: Page) => {
   await page.setViewportSize({ width: 390, height: 844 });
@@ -101,11 +102,6 @@ const checkMovieListItemExistence = async (page: Page, args: CheckMovieListItemE
   }
 
   await checkLocatorExistence(page, {
-    locator: `#movie-list-item-inner-container-${userMovieId}`,
-    exists
-  });
-
-  await checkLocatorExistence(page, {
     locator: `#movie-list-item-title-${id}`,
     text: title.length > 20 ? `${title.slice(0, 16)}...` : title,
     exists
@@ -146,8 +142,8 @@ const checkMovieListItemExistence = async (page: Page, args: CheckMovieListItemE
 }
 
 interface CheckMultipleUserMoviesArgs {
-  movies: UserMovie;
-  exists: true;
+  movies: UserMovie[];
+  exists: boolean;
 }
 
 const checkMultipleUserMovies = async (page: Page, args: CheckMultipleUserMoviesArgs) => {

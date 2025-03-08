@@ -38,6 +38,7 @@ const getOMDBOfflineMovieByTitle = async (title: string, userMovieWatchedState?:
         return returnedMovie;
       } else {
         const returnedMovie = formatOMDBMovie({ title, movieData: cachedOMDBResult as OMDBMovieResponse, userMovieWatchedState: watchedState, userMovieId });
+        console.log(returnedMovie)
         return returnedMovie;
       }
     } else {

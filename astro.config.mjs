@@ -12,7 +12,9 @@ import node from "@astrojs/node";
 export default defineConfig({
   integrations: [tailwind(), htmx(), alpinejs()],
   output: "server",
-
+  server: {
+    port: 3000
+  },
   adapter: node({
     mode: "standalone",
   }),
