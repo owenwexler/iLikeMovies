@@ -17,8 +17,6 @@ interface MovieListItemInnerProps {
 
 const MovieListItemInner: FC<MovieListItemInnerProps> = ({ movie, userId, userMovieId, watchedStateParam, filter }) => {
   // this is the only way to have a div that is replacable by HTMX without screwing up the layout, this keeps the swapped out content within the PageCard component.  Including the image in this component caused it to flicker on every toggle of the watched button which is unacceptable so the image will not be included in this component.
-  console.log('watchedStateParam: ', watchedStateParam)
-
   const { title, year, rated, genre, watched } = movie;
 
   const buttonText = watched ? 'Watched' : 'To Watch';

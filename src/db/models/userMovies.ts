@@ -74,9 +74,6 @@ const setMovieWatched = async (args: SetMovieWatchedArgs) => {
     currentMovieWatchedState 
   } = args;
 
-  console.log('setMovieWatched hit');
-  console.log('args: ', args)
-
   if (!isValidULID(userMovieId)) {
     throw new Error('Invalid ULID format at setMovieWatched');
   }

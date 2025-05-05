@@ -167,7 +167,6 @@ partialsRoute.post('/user/add-movie/:userId', async (c) => {
     });
 
     const movies = await getAllUserMovies({ userId, filter: 'all' });
-    console.log('movies: ', movies);
     return c.html(
       <MovieList movies={movies} filter="all" />
     );
