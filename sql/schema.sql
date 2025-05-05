@@ -10,9 +10,9 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS user_movies (
   user_movie_id VARCHAR(35) NOT NULL,
   movie_title TEXT NOT NULL,
-  imdb_id VARCHAR(50),
+  imdb_id VARCHAR(50) DEFAULT NULL,
   user_id VARCHAR(50) REFERENCES users(user_id),
-  watched BOOLEAN,
+  watched BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMP DEFAULT NOW(),
   UNIQUE (user_movie_id),
   PRIMARY KEY (user_movie_id)
