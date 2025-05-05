@@ -81,13 +81,15 @@ test.describe('Core CRUD functions', () => {
     await page.locator('#add-movie-input').click();
     await page.locator('#add-movie-input').fill('This Movie Is Also Not In OMDB');
     await page.getByRole('button', { name: 'Add Movie' }).click();
-    await expect(page.getByRole('heading', { name: 'This Movie Is Al...' })).toBeVisible();
+    await expect(page.locator('#movie-list-item-title-this-movie-is-also-not-in-omdb')).toBeVisible();
     // check that "This Movie Is Also Not In OMDB" plus all other movies are shown and that the new movie is unwatched by default
     await checkMultipleUserMovies(page, {
       movies: [thisMovieIsAlsoNotInOMDB, ...userMovies],
       exists: true
     });
-    await page.locator('#movie-filter-unwatched').check();
+    
+    // test that the movie is unwatched by default
+    await expect(page.locator('#watched-button-this-movie-is-also-not-in-omdb')).toContainText('To Watch');
     
     // TODO: this causes the test to fail becuase there's a bug where recently added movies are not included in the filtered unwatched movies result as they should be.  Maybe it is a cache invalidation issue?  Investigate after the move to BHANO stack.  
     // For now we will just test that the Watched/To Watch button for This Movie Is Also Not In OMDB reads "To Watch", but the goal is to make this commented out section pass
@@ -95,8 +97,6 @@ test.describe('Core CRUD functions', () => {
     //  movies: [thisMovieIsAlsoNotInOMDB, ...userUnwatchedMovies],
     //  exists: true
     //});
-    
-    await expect(page.locator('#watched-button-this-movie-is-also-not-in-omdb')).toContainText('To Watch');
 
     // I have no idea why Playwright can't find this locator.  I go to the page and find it myself in seconds.  And PLaywright had no trouble finding it literally a few lines up in this very test.  WTF is going on.
     // For now we delete the movie manually or maybe find a way to delete it without hitting the button like a DB call or whatever

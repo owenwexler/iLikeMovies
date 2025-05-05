@@ -1,8 +1,7 @@
-import { blankUserMovie } from '../../data/blankUserMovie';
+import { sql } from 'bun';
 import { isValidULID } from '../../helper/isValidULID';
-import type { FilterUnionType } from '../../typedefs/FilterUnionType';
 import type { UserMovie } from '../../typedefs/UserMovie';
-import sql from '../db';
+import { blankUserMovie } from '../../data/blankUserMovie';
 
 interface GenericUserMovieModelArgs {
   userId: string;
@@ -20,7 +19,6 @@ const getUserMoviesById = async (args: GetUserMoviesByIdArgs): UserMovie[] => {
   if (!isValidULID(inputUserId)) {
     throw new Error('Invalid ULID format at getUserMoviesById');
   }
-
   let result: unknown;
 
   try {
@@ -75,6 +73,9 @@ const setMovieWatched = async (args: SetMovieWatchedArgs) => {
     userMovieId, 
     currentMovieWatchedState 
   } = args;
+
+  console.log('setMovieWatched hit');
+  console.log('args: ', args)
 
   if (!isValidULID(userMovieId)) {
     throw new Error('Invalid ULID format at setMovieWatched');

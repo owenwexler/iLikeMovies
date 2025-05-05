@@ -1,37 +1,28 @@
 {
-  "name": "",
-  "type": "module",
-  "version": "0.0.1",
+  "name": "bhano-starter-template",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "test:e2e:run": "npx playwright test",
-    "test:e2e:ui": "npx playwright test --ui",
-    "test:report": "npx playwright show-report",
-    "test:codegen": "npx playwright codegen http://localhost:3000",
-    "test:unit": "vitest"
+    "compile:tailwind": "tailwindcss -i ./static/css/input.css -o ./static/css/output.css",
+    "dev": "bun run nodemon",
+    "test:e2e:run": "bunx playwright test",
+    "test:e2e:ui": "bunx playwright test --ui",
+    "test:report": "bunx playwright show-report",
+    "test:codegen": "bunx playwright codegen http://localhost:3000",
+    "test:unit": "vitest"  },
+  "module": "index.tsx",
+  "type": "module",
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/bun": "latest",
+    "@types/node": "^22.15.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@astrojs/alpinejs": "^0.4.0",
-    "@astrojs/check": "^0.9.3",
-    "@astrojs/node": "^8.3.4",
-    "@astrojs/tailwind": "^5.1.1",
-    "@types/alpinejs": "^3.13.10",
-    "alpinejs": "^3.14.1",
-    "astro": "^4.15.10",
-    "astro-htmx": "^1.0.6",
-    "htmx.org": "^1.9.12",
-    "ioredis": "^5.4.1",
-    "postgres": "^3.4.4",
-    "tailwindcss": "^3.4.13",
-    "typescript": "^5.6.2",
+    "hono": "^4.7.4",
+    "ioredis": "^5.6.0",
+    "tailwindcss": "3.4.13",
     "ulid": "^2.3.0"
   },
-  "devDependencies": {
-    "@playwright/test": "^1.49.0",
-    "@types/node": "^22.10.0"
-  }
+  "private": true
 }

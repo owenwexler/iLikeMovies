@@ -1,0 +1,7 @@
+{
+  "watch": ["src"],
+  "ext": ".ts,.js",
+  "ignore": [],
+  "exec": "bun run compile:tailwind && bun run --bun --hot src/index.tsx"
+}
+

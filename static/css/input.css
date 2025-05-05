@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+form {
+  margin: 0px; 
+  padding: 0px; 
+  display: inline;
+}

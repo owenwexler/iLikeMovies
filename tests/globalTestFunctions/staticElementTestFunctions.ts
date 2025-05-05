@@ -12,7 +12,7 @@ const checkLogoExistence = async (page: Page, args: GenericExistenceCheckArgs) =
 
   await assertImageSrc(page, {
     id: '#logo',
-    src: '/public/images/iLikeMovies-logo.svg'
+    src: '/static/images/iLikeMovies-logo.svg'
   });
 }
 
